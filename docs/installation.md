@@ -23,6 +23,14 @@ that same directory with `--yes` writes the profile and its journal there.
 The offline workflow does not install packages, start services or enroll AD.
 Use `./uninstall.sh --root "$stage"` to review removal of the staged profile.
 
+## Install from the AUR
+
+After the public release, the simplest method on Omarchy is
+`yay -S omarchy-enterprise`. The AUR recipe builds the signed source archive
+and verifies its detached signature with the release key
+`CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`. The same qualification limits
+apply; evaluate on a disposable system first.
+
 ## Signed-package qualification
 
 The Arch package `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` (Pacman version

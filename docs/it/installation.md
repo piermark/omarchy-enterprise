@@ -13,6 +13,17 @@ e verificare sia la firma sia gli hash. Seguire la
 [procedura completa in inglese](../installation.md).
 Mantenere un account amministrativo locale e un backup verificato.
 
+## Installazione semplice (AUR)
+
+Dopo la pubblicazione, il metodo più semplice su Omarchy è:
+
+```sh
+yay -S omarchy-enterprise
+```
+
+Il pacchetto AUR compila l'archivio sorgente firmato (chiave
+`CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`).
+
 ## Pacchetto precompilato
 
 Il pacchetto `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` sarà pubblicato nelle

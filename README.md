@@ -16,24 +16,25 @@ desktop users review configuration, workstation resources and recovery options.
 A separate administrative CLI reviews plans and applies scoped changes only with
 explicit approval.
 
-> [!WARNING]
-> **Early release, not production-ready.** The 163 retained offline regression
-> tests pass for this source. Clean Omarchy installation, native desktop launch and
-> live integrations (AD, PAM, SDDM, SMB, CUPS, Windows guest) still require
-> qualification. Evaluate on disposable systems and keep independent local
-> administrator access. See the [availability matrix](docs/availability.md).
+**Early release, not production-ready:** see the [availability matrix](docs/availability.md).
 
-> [!NOTE]
-> **Release v0.5.0 is source-only for now.** It ships the source archive, the
-> illustrated PDF user guide and a signed `SHA256SUMS`. The prebuilt package
-> `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` is built and reproducible, but it will
-> be attached to the release only after maintainer signing and clean Omarchy
-> acceptance.
+## Install
+
+```sh
+yay -S omarchy-enterprise
+```
+
+The AUR package will be available after the public release. It builds from the
+signed source archive (release key `CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`).
+Then open **Omarchy Enterprise** from the Omarchy menu. For a manually verified
+install, see [Install the prebuilt package](#install-the-prebuilt-package) or
+[Build the package from source](#build-the-package-from-source).
 
 ---
 
 ## Contents
 
+- [Install](#install)
 - [Feature overview](#feature-overview)
 - [Architecture](#architecture)
 - [Command-line tools](#command-line-tools)
@@ -170,8 +171,8 @@ sha256sum -c --ignore-missing SHA256SUMS                  # every downloaded fil
 
 ## Install the prebuilt package
 
-> Available once the package asset is published. Requires x86_64 Omarchy 4.5
-> (4.5 or 4.5.0). Keep Pacman signature verification enabled.
+> The signed package is attached to the release after clean Omarchy acceptance.
+> Requires x86_64 Omarchy 4.5 (4.5 or 4.5.0). Keep Pacman signature verification enabled.
 
 1. Download `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst`, its `.sig`, `SHA256SUMS`,
    `SHA256SUMS.asc` and the public key, then verify them as shown above.
