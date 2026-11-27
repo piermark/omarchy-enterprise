@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 820" width="1440" height="820" role="img" aria-labelledby="title">
+<title id="title">Omarchy Enterprise workstation architecture</title>
+<rect x="0" y="0" width="1440" height="820" rx="0" fill="#191918" stroke="none"/>
+<text x="54" y="75" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="48" font-weight="700">Workstation architecture</text>
+<text x="54" y="119" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="25" font-weight="400">Desktop review, administrator approvals and site integrations</text>
+<path d="M245 279V320H720" fill="none" stroke="#efb568" stroke-width="3"/>
+<path d="M1195 279V320H720" fill="none" stroke="#efb568" stroke-width="3"/>
+<path d="M720 320V357" fill="none" stroke="#efb568" stroke-width="3"/>
+<path d="M720 460V493H209V520" fill="none" stroke="#efb568" stroke-width="3"/>
+<path d="M720 493V520" fill="none" stroke="#efb568" stroke-width="3"/>
+<path d="M720 493H1231V520" fill="none" stroke="#efb568" stroke-width="3"/>
+<rect x="54" y="168" width="430" height="111" rx="12" fill="#242321" stroke="#52483a"/>
+<text x="76" y="209" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="26" font-weight="700">GTK4 Control Center</text>
+<text x="76" y="245" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Desktop review and configuration drafts</text>
+<rect x="956" y="168" width="430" height="111" rx="12" fill="#242321" stroke="#52483a"/>
+<text x="978" y="209" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="26" font-weight="700">Administrative CLI</text>
+<text x="978" y="245" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Scoped plans and change approval</text>
+<rect x="342" y="357" width="756" height="103" rx="12" fill="#242321" stroke="#52483a"/>
+<text x="364" y="398" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="26" font-weight="700">Policy, receipts and recovery</text>
+<text x="364" y="434" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Enterprise Guard checks the managed baseline</text>
+<rect x="54" y="520" width="432" height="162" rx="12" fill="#242321" stroke="#52483a"/>
+<text x="76" y="561" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="26" font-weight="700">Directory configuration</text>
+<text x="76" y="597" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Samba ADS · machine trust</text>
+<text x="76" y="625" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">SSSD · users, groups and PAM</text>
+<text x="76" y="653" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Kerberos · service tickets</text>
+<rect x="504" y="520" width="432" height="162" rx="12" fill="#242321" stroke="#52483a"/>
+<text x="526" y="561" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="26" font-weight="700">Workstation resources</text>
+<text x="526" y="597" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">File server and Nautilus bookmarks</text>
+<text x="526" y="625" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">CUPS discovery and queue plans</text>
+<rect x="954" y="520" width="432" height="162" rx="12" fill="#242321" stroke="#52483a"/>
+<text x="976" y="561" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="26" font-weight="700">Optional Windows workspace</text>
+<text x="976" y="597" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Guest storage and lifecycle planning</text>
+<text x="976" y="625" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Manual startup by default</text>
+<rect x="54" y="720" width="1332" height="59" rx="10" fill="#33291e" stroke="#52483a"/>
+<text x="77" y="757" fill="#efb568" font-family="Liberation Sans, sans-serif" font-size="23" font-weight="700">ROADMAP   /   Inbound RDP to Omarchy remains unavailable in this preview.</text>
+</svg>

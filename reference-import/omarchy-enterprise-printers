@@ -1,0 +1,211 @@
+#!/bin/bash
+
+set -euo pipefail
+export LC_ALL=C
+export PATH=/usr/bin:/usr/sbin
+
+require_root() {
+    if [[ $EUID -ne 0 ]]; then
+        echo "Please run this operation with sudo."
+        exit 1
+    fi
+}
+
+validate_name() {
+    if [[ ! "$1" =~ ^[a-zA-Z0-9][a-zA-Z0-9_-]{0,63}$ ]]; then
+        echo "Invalid printer name."
+        exit 1
+    fi
+}
+
+echo "========================================"
+echo "      OMARCHY ENTERPRISE PRINTERS"
+echo "              v0.2.0"
+echo "========================================"
+echo
+
+case "${1:-status}" in
+
+    status)
+        echo "CUPS service:"
+        systemctl is-active cups.service
+        echo
+        echo "Startup configuration:"
+        systemctl is-enabled cups.service
+        echo
+        echo "Printing system:"
+        lpstat -r
+        lpstat -d || true
+        echo
+        echo "Installed printers:"
+        lpstat -p || true
+        ;;
+
+    list)
+        lpstat -r
+        lpstat -p || true
+        lpstat -d || true
+        ;;
+
+    jobs)
+        lpstat -W not-completed -u "$(id -un)"
+        ;;
+
+    discover)
+        require_root
+        timeout 30s lpinfo -v
+        ;;
+
+    drivers)
+        lpinfo -m
+        ;;
+
+    options)
+        NAME="${2:?Specify printer name}"
+        validate_name "$NAME"
+        lpoptions -p "$NAME" -l
+        ;;
+
+    add-ipp)
+        require_root
+
+        NAME="${2:?Specify printer name}"
+        URI="${3:?Specify IPP or IPPS URI}"
+
+        validate_name "$NAME"
+
+        if [[ ! "$URI" =~ ^ipps?://[a-zA-Z0-9.-]+(:[0-9]+)?/[a-zA-Z0-9._~/%+-]+$ ]]; then
+            echo "Invalid IPP/IPPS URI."
+            echo "Credentials in printer URIs are not supported."
+            exit 1
+        fi
+
+        if lpstat -p "$NAME" >/dev/null 2>&1 ||
+           lpstat -c "$NAME" >/dev/null 2>&1; then
+            echo "Destination already exists."
+            exit 1
+        fi
+
+        lpadmin -p "$NAME" \
+            -E \
+            -v "$URI" \
+            -m everywhere \
+            -o printer-is-shared=false
+
+        echo "Printer installed successfully."
+        lpstat -p "$NAME"
+        ;;
+
+
+    add-socket)
+        require_root
+
+        NAME="${2:?Specify printer name}"
+        HOST="${3:?Specify hostname or IP}"
+        DRIVER="${4:-drv:///sample.drv/generic.ppd}"
+
+        validate_name "$NAME"
+
+        if [[ ! "$HOST" =~ ^[a-zA-Z0-9][a-zA-Z0-9.-]{0,252}$ ]]; then
+            echo "Invalid hostname or IPv4 address."
+            exit 1
+        fi
+
+        lpstat -r
+
+        if lpstat -p "$NAME" >/dev/null 2>&1 ||
+           lpstat -c "$NAME" >/dev/null 2>&1; then
+            echo "Destination already exists."
+            exit 1
+        fi
+
+        getent ahostsv4 "$HOST" >/dev/null
+
+        if ! timeout 5 bash -c ': >/dev/tcp/"$1"/9100' bash "$HOST"; then
+            echo "Printer TCP port 9100 is unreachable."
+            exit 1
+        fi
+
+        lpadmin -p "$NAME" \
+            -E \
+            -v "socket://$HOST:9100" \
+            -m "$DRIVER" \
+            -o printer-is-shared=false
+
+        echo "Network printer installed successfully."
+        lpstat -p "$NAME"
+        ;;
+
+    set-system-default)
+        require_root
+
+        NAME="${2:?Specify printer name}"
+        validate_name "$NAME"
+
+        lpstat -p "$NAME"
+        lpadmin -d "$NAME"
+
+        echo "System default printer configured."
+        ;;
+
+    default)
+        NAME="${2:?Specify printer name}"
+        validate_name "$NAME"
+
+        if [[ $EUID -eq 0 ]]; then
+            echo "Run as the desktop user to set a personal default."
+            exit 1
+        fi
+
+        lpstat -p "$NAME"
+        lpoptions -d "$NAME"
+
+        echo "Personal default printer configured."
+        ;;
+
+    remove)
+        require_root
+
+        NAME="${2:?Specify printer name}"
+        validate_name "$NAME"
+
+        lpstat -p "$NAME"
+
+        read -rp "Remove printer and its queued jobs? [y/N] " ANSWER
+
+        if [[ "$ANSWER" == "y" || "$ANSWER" == "Y" ]]; then
+            lpadmin -x "$NAME"
+            echo "Printer removed."
+        else
+            echo "Operation cancelled."
+        fi
+        ;;
+
+    gui)
+        if [[ $EUID -eq 0 ]]; then
+            echo "Launch the graphical manager as your desktop user."
+            exit 1
+        fi
+
+        exec /usr/bin/system-config-printer
+        ;;
+
+    *)
+        echo "Available commands:"
+        echo
+        echo "  status"
+        echo "  list"
+        echo "  jobs"
+        echo "  discover"
+        echo "  drivers"
+        echo "  options PRINTER"
+        echo "  add-ipp NAME URI"
+        echo "  add-socket NAME HOST [DRIVER]"
+        echo "  set-system-default PRINTER"
+        echo "  default PRINTER"
+        echo "  remove PRINTER"
+        echo "  gui"
+        exit 1
+        ;;
+
+esac

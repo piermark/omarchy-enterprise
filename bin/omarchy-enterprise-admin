@@ -1,0 +1,17 @@
+#!/usr/bin/python3 -IB
+"""Dispatch the installed, narrowly scoped administrator commands."""
+import os
+import sys
+
+if os.geteuid() != 0 or sys.argv[0] != "/usr/bin/omarchy-enterprise-admin":
+    sys.exit("Use the installed helper from an authorized administrator session.")
+
+sys.path.insert(0, "/usr/lib/omarchy-enterprise")
+from oe import diagnostics, migration, operational_cli
+
+commands = {"migrate": migration.admin_main, "diagnose": diagnostics.admin_main,
+            "windows-restart-policy": diagnostics.windows_admin_main,
+            "operational": operational_cli.admin_main}
+if len(sys.argv) < 2 or sys.argv[1] not in commands:
+    sys.exit("Usage: omarchy-enterprise-admin {migrate|diagnose|windows-restart-policy|operational} ...")
+raise SystemExit(commands[sys.argv.pop(1)]())

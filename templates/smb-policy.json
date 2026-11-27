@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "shares": [
+    {
+      "label": "Team documents",
+      "uri": "smb://files.example.com/documents",
+      "groups": ["employees@example.com"]
+    }
+  ]
+}

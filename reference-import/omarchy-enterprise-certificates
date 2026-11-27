@@ -1,0 +1,173 @@
+#!/bin/bash
+
+set -euo pipefail
+export LC_ALL=C
+export PATH=/usr/bin:/usr/sbin
+umask 077
+
+ANCHORS="/etc/ca-certificates/trust-source/anchors"
+
+require_root() {
+    if [[ $EUID -ne 0 ]]; then
+        echo "Please run with sudo."
+        exit 1
+    fi
+}
+
+normalize_cert() {
+    openssl x509 -in "$1" -out "$2" 2>/dev/null ||
+    openssl x509 -inform DER -in "$1" -out "$2"
+}
+
+fingerprint() {
+    openssl x509 -in "$1" -noout -fingerprint -sha256 |
+        cut -d= -f2 | tr -d ':' | tr '[:lower:]' '[:upper:]'
+}
+
+echo "========================================"
+echo "    OMARCHY ENTERPRISE CERTIFICATES"
+echo "              v0.1.0"
+echo "========================================"
+echo
+
+case "${1:-list}" in
+
+    list)
+        shopt -s nullglob
+        files=("$ANCHORS"/enterprise-*.crt)
+
+        if (( ${#files[@]} == 0 )); then
+            echo "No managed enterprise certificates installed."
+        fi
+
+        for CERT in "${files[@]}"; do
+            echo "----------------------------------------"
+            echo "$(basename "$CERT")"
+
+            openssl x509 -in "$CERT" -noout \
+                -subject -issuer -dates -fingerprint -sha256
+
+            if ! openssl x509 -in "$CERT" -checkend 0 -noout >/dev/null; then
+                echo "[EXPIRED]"
+            elif openssl x509 -in "$CERT" -checkend 2592000 -noout >/dev/null; then
+                echo "[OK] Valid for more than 30 days."
+            else
+                echo "[WARNING] Expires within 30 days."
+            fi
+        done
+        ;;
+
+    inspect)
+        SOURCE="${2:?Specify certificate file}"
+
+        TMP=$(mktemp)
+        trap 'rm -f "$TMP"' EXIT
+
+        normalize_cert "$SOURCE" "$TMP"
+
+        openssl x509 -in "$TMP" -noout \
+            -subject -issuer -dates \
+            -fingerprint -sha256 \
+            -ext basicConstraints
+        ;;
+
+    install)
+        require_root
+
+        SOURCE="${2:?Specify certificate file}"
+        EXPECTED="${3:?Specify verified SHA256 fingerprint}"
+        EXPECTED=$(printf '%s' "$EXPECTED" |
+            tr -d ':' | tr '[:lower:]' '[:upper:]')
+
+        TMP=$(mktemp)
+        trap 'rm -f "$TMP"' EXIT
+
+        normalize_cert "$SOURCE" "$TMP"
+
+        ACTUAL=$(fingerprint "$TMP")
+
+        if [[ "$ACTUAL" != "$EXPECTED" ]]; then
+            echo "ERROR: Certificate fingerprint mismatch."
+            exit 1
+        fi
+
+        if ! openssl x509 -in "$TMP" -noout \
+            -ext basicConstraints | grep -q 'CA:TRUE'; then
+            echo "ERROR: Not a CA certificate."
+            exit 1
+        fi
+
+        SUBJECT=$(openssl x509 -in "$TMP" -noout -subject -nameopt RFC2253)
+        ISSUER=$(openssl x509 -in "$TMP" -noout -issuer -nameopt RFC2253)
+
+        if [[ "${SUBJECT#subject=}" != "${ISSUER#issuer=}" ]]; then
+            echo "ERROR: Only self-signed Root CA certificates are supported."
+            exit 1
+        fi
+
+        openssl verify -check_ss_sig \
+            -no-CApath -no-CAstore \
+            -CAfile "$TMP" "$TMP"
+
+        DEST="$ANCHORS/enterprise-$ACTUAL.crt"
+
+        if [[ -e "$DEST" ]]; then
+            echo "Certificate already installed."
+            exit 0
+        fi
+
+        install -o root -g root -m 644 "$TMP" "$DEST"
+
+        if ! update-ca-trust extract; then
+            rm -f "$DEST"
+            update-ca-trust extract || true
+            exit 1
+        fi
+
+        echo "Enterprise Root CA installed successfully."
+        ;;
+
+    remove)
+        require_root
+
+        FP="${2:?Specify SHA256 fingerprint}"
+        FP=$(printf '%s' "$FP" |
+            tr -d ':' | tr '[:lower:]' '[:upper:]')
+
+        [[ "$FP" =~ ^[A-F0-9]{64}$ ]] || {
+            echo "Invalid fingerprint."
+            exit 1
+        }
+
+        CERT="$ANCHORS/enterprise-$FP.crt"
+
+        [[ -f "$CERT" ]] || {
+            echo "Certificate not found."
+            exit 1
+        }
+
+        TMP=$(mktemp)
+        trap 'rm -f "$TMP"' EXIT
+        cp -a "$CERT" "$TMP"
+
+        rm "$CERT"
+
+        if ! update-ca-trust extract; then
+            install -o root -g root -m 644 "$TMP" "$CERT"
+            update-ca-trust extract || true
+            exit 1
+        fi
+
+        echo "Enterprise certificate removed."
+        ;;
+
+    *)
+        echo "Usage:"
+        echo "  omarchy-enterprise-certificates list"
+        echo "  omarchy-enterprise-certificates inspect FILE"
+        echo "  omarchy-enterprise-certificates install FILE SHA256"
+        echo "  omarchy-enterprise-certificates remove SHA256"
+        exit 1
+        ;;
+
+esac

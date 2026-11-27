@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Omarchy Enterprise Bookmark Refresh
+Exec=/usr/bin/omarchy-enterprise file-servers login-refresh
+NoDisplay=true
+Terminal=false

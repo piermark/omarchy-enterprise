@@ -1,0 +1,13 @@
+[Trigger]
+Operation = Upgrade
+Type = Package
+Target = samba
+Target = sssd
+Target = pam
+Target = sddm
+
+[Action]
+Description = Checking the Enterprise Guard baseline
+When = PreTransaction
+Exec = /usr/bin/omarchy-enterprise-guard check
+AbortOnFail

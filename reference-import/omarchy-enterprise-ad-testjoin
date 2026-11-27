@@ -1,0 +1,17 @@
+#!/bin/bash
+
+set -euo pipefail
+export LC_ALL=C
+
+WORKGROUP=$(/usr/bin/testparm -s \
+    --parameter-name="workgroup" 2>/dev/null)
+
+if [[ -z "$WORKGROUP" ]]; then
+    echo "ERROR: Samba workgroup not configured."
+    exit 1
+fi
+
+exec /usr/bin/net \
+    -s /etc/samba/smb.conf \
+    -W "$WORKGROUP" \
+    -P ads testjoin

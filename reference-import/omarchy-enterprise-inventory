@@ -1,0 +1,300 @@
+#!/usr/bin/python3
+
+import argparse
+import sys
+import json
+import os
+import platform
+import subprocess
+from pathlib import Path
+from datetime import datetime, timezone
+
+VERSION = "0.1.3"
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--json", action="store_true")
+parser.add_argument("--software", action="store_true")
+parser.add_argument("--network", action="store_true")
+parser.add_argument("--export", action="store_true")
+args = parser.parse_args()
+
+if args.export:
+    if os.geteuid() != 0:
+        sys.exit("Run export with sudo.")
+    args.software = True
+    args.network = True
+
+
+errors = []
+
+def run(*cmd):
+    try:
+        result = subprocess.run(
+            cmd,
+            capture_output=True,
+            text=True,
+            timeout=15,
+            env=dict(os.environ, LC_ALL="C")
+        )
+        if result.returncode == 0:
+            return result.stdout.strip()
+
+        errors.append(cmd[0] + ": command failed")
+
+    except (OSError, subprocess.TimeoutExpired):
+        errors.append(cmd[0] + ": unavailable or timeout")
+
+    return None
+
+def read(path):
+    try:
+        return Path(path).read_text().strip()
+    except OSError:
+        return None
+
+def json_command(*cmd):
+    result = run(*cmd)
+    if result is None:
+        return None
+
+    try:
+        return json.loads(result)
+    except ValueError:
+        errors.append(cmd[0] + ": invalid JSON")
+        return None
+
+def dmi(name):
+    return read("/sys/class/dmi/id/" + name)
+
+def service(name):
+    try:
+        result = subprocess.run(
+            ["systemctl", "is-active", name],
+            capture_output=True,
+            text=True,
+            timeout=5
+        )
+        return result.stdout.strip() or "unknown"
+    except (OSError, subprocess.TimeoutExpired):
+        return "unknown"
+
+def memory():
+    values = {}
+
+    for line in (read("/proc/meminfo") or "").splitlines():
+        key, _, value = line.partition(":")
+        if key in ("MemTotal", "MemAvailable", "SwapTotal"):
+            values[key] = round(
+                int(value.split()[0]) / 1048576, 2
+            )
+
+    return values
+
+cpu_data = json_command("lscpu", "-J") or {}
+
+cpu = {
+    item["field"].rstrip(":"): item["data"]
+    for item in cpu_data.get("lscpu", [])
+}
+
+packages = run("pacman", "-Q")
+software = packages.splitlines() if packages is not None else None
+
+storage = json_command(
+    "lsblk", "-J",
+    "-o", "NAME,TYPE,SIZE,FSTYPE,MOUNTPOINTS,MODEL,TRAN"
+)
+
+interfaces = json_command("ip", "-j", "address", "show")
+
+network = None
+
+if interfaces is not None:
+    network = []
+
+    for interface in interfaces:
+        item = {
+            "name": interface.get("ifname"),
+            "state": interface.get("operstate"),
+            "mtu": interface.get("mtu")
+        }
+
+        if args.network:
+            item["addresses"] = [
+                address.get("local")
+                for address in interface.get("addr_info", [])
+            ]
+
+        network.append(item)
+
+inventory = {
+    "schema_version": 1,
+    "inventory_version": VERSION,
+    "timestamp": datetime.now(timezone.utc).isoformat(),
+
+    "system": {
+        "hostname": platform.node(),
+        "os": platform.freedesktop_os_release().get(
+            "PRETTY_NAME", "Unknown"
+        ),
+        "kernel": platform.release(),
+        "architecture": platform.machine(),
+        "omarchy": run("pacman", "-Q", "omarchy")
+    },
+
+    "hardware": {
+        "manufacturer": dmi("sys_vendor"),
+        "model": dmi("product_name"),
+        "motherboard": dmi("board_name"),
+        "bios_vendor": dmi("bios_vendor"),
+        "bios_version": dmi("bios_version"),
+        "bios_date": dmi("bios_date"),
+
+        "cpu": cpu.get("Model name"),
+        "logical_cpus": os.cpu_count(),
+        "memory_gib": memory()
+    },
+
+    "storage": storage,
+    "network": network,
+
+    "software": {
+        "installed_packages": (
+            len(software) if software is not None else None
+        )
+    },
+
+    "services": {
+        name: service(name + ".service")
+        for name in [
+            "sssd",
+            "winbind",
+            "sddm",
+            "docker",
+            "cups",
+            "polkit",
+            "avahi-daemon"
+        ]
+    },
+
+    "collection_errors": errors
+}
+
+if args.software:
+    inventory["software"]["packages"] = software
+
+if args.export:
+    import tempfile
+    import stat
+
+    os.umask(0o077)
+
+    directory = Path("/var/lib/omarchy-enterprise/inventory")
+    directory.mkdir(mode=0o700, parents=True, exist_ok=True)
+
+    metadata = directory.lstat()
+
+    if not stat.S_ISDIR(metadata.st_mode) or \
+       metadata.st_uid != 0 or \
+       stat.S_IMODE(metadata.st_mode) != 0o700:
+        sys.exit("Unsafe inventory directory permissions.")
+
+    temporary = None
+
+    try:
+        with tempfile.NamedTemporaryFile(
+            mode="w",
+            dir=directory,
+            delete=False
+        ) as handle:
+            temporary = Path(handle.name)
+            json.dump(inventory, handle, indent=2,
+                      ensure_ascii=False)
+            handle.write("\n")
+
+        destination = directory / "system.json"
+        os.replace(temporary, destination)
+
+        print("Inventory exported successfully:")
+        print(destination)
+        print("Collection warnings:", len(errors))
+
+    finally:
+        if temporary is not None:
+            temporary.unlink(missing_ok=True)
+
+    sys.exit(0)
+
+if args.json:
+    print(json.dumps(
+        inventory,
+        indent=2,
+        ensure_ascii=False
+    ))
+    sys.exit(0)
+
+print("========================================")
+print("     OMARCHY ENTERPRISE INVENTORY")
+print("              v" + VERSION)
+print("========================================")
+
+def section(title, values):
+    print("\n== " + title + " ==")
+    for key, value in values.items():
+        print(f"{key}: {value}")
+
+section("System", inventory["system"])
+
+hardware = dict(inventory["hardware"])
+ram = hardware.pop("memory_gib")
+
+section("Hardware", hardware)
+section("Memory (GiB)", ram)
+
+print("\n== Storage ==")
+
+def show_disk(disk, depth=0):
+    prefix = "  " * depth
+
+    print(
+        prefix
+        + str(disk.get("name"))
+        + " | " + str(disk.get("size"))
+        + " | " + str(disk.get("type"))
+        + " | " + str(disk.get("fstype") or "-")
+    )
+
+    for child in disk.get("children", []):
+        show_disk(child, depth + 1)
+
+for disk in (storage or {}).get("blockdevices", []):
+    show_disk(disk)
+
+print("\n== Network Interfaces ==")
+
+for item in network or []:
+    print(
+        f"{item['name']}: "
+        f"{item['state']} | MTU {item['mtu']}"
+    )
+
+    if args.network:
+        for address in item.get("addresses", []):
+            print("  " + str(address))
+
+section("Enterprise Services", inventory["services"])
+
+print("\n== Software ==")
+print("Installed packages:", inventory["software"]["installed_packages"])
+
+if args.software:
+    print("\n".join(software or []))
+
+if errors:
+    print("\n== Collection Warnings ==")
+    for error in errors:
+        print("[WARN] " + error)
+
+print("\n========================================")
+print("Inventory completed.")
+print("No configuration changes were made.")

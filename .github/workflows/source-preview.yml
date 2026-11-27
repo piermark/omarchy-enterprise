@@ -1,0 +1,26 @@
+name: Source preview verification
+on:
+  workflow_dispatch:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: false
+      - name: Verify standalone source
+        shell: bash
+        run: |
+          export_dir=$(mktemp -d)
+          python -B tools/export-phase15.py "$export_dir"
+          cmp SOURCE-SHA256SUMS "$export_dir/omarchy-enterprise/SOURCE-SHA256SUMS"
+          git ls-files | LC_ALL=C sort > "$export_dir/tracked.txt"
+          (cd "$export_dir/omarchy-enterprise" && find . -type f -printf '%P\n' | LC_ALL=C sort) > "$export_dir/exported.txt"
+          cmp "$export_dir/tracked.txt" "$export_dir/exported.txt"
+          sha256sum -c SOURCE-SHA256SUMS
+          cd "$export_dir/omarchy-enterprise"
+          sha256sum -c SOURCE-SHA256SUMS
+          python -B -m unittest discover -s tests -v

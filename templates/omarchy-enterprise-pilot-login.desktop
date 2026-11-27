@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Omarchy Enterprise Pilot Bookmark Refresh
+Exec=/opt/omarchy-enterprise-pilot-10d4/bin/omarchy-enterprise pilot-session login-refresh
+NoDisplay=true
+Terminal=false

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "shares": [
+    {"label": "Company File Server", "uri": "smb://fileserver.example.com/", "groups": []},
+    {"label": "Shared Documents", "uri": "smb://fileserver.example.com/documents", "groups": []},
+    {"label": "Department Resources", "uri": "smb://fileserver.example.com/department",
+     "groups": ["employees@example.test"]},
+    {"label": "Public Files", "uri": "smb://files02.example.com/public", "groups": []}
+  ]
+}

@@ -1,0 +1,219 @@
+#!/usr/bin/python3
+
+import sys
+import os
+import re
+import shutil
+import getpass
+import subprocess
+
+VERSION = "0.1.0"
+
+print("========================================")
+print("   OMARCHY ENTERPRISE PRINTER MONITOR")
+print("              v" + VERSION)
+print("========================================")
+print()
+
+if len(sys.argv) != 2:
+    sys.exit("Usage: omarchy-enterprise-printer-monitor HOST")
+
+host = sys.argv[1]
+
+if not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9.-]{0,252}", host):
+    sys.exit("Invalid hostname or IPv4 address.")
+
+if not shutil.which("snmpwalk"):
+    sys.exit("Net-SNMP is not installed.")
+
+community = getpass.getpass("SNMP community: ")
+
+if not community:
+    sys.exit("SNMP community is required.")
+
+env = dict(os.environ, LC_ALL="C")
+
+def query(command, oid):
+    try:
+        result = subprocess.run(
+            [
+                command,
+                "-v2c", "-c", community,
+                "-t", "2", "-r", "1",
+                "-On", "-Oe",
+                host, oid
+            ],
+            capture_output=True,
+            text=True,
+            timeout=20,
+            env=env
+        )
+
+        if result.returncode != 0:
+            return {}
+
+        values = {}
+
+        for line in result.stdout.splitlines():
+            match = re.match(
+                r"^(\.\d+(?:\.\d+)*)\s*=\s*"
+                r"[^:]+:\s*(.*)$", line
+            )
+
+            if match:
+                values[match[1]] = match[2].strip('"')
+
+        return values
+
+    except (OSError, subprocess.TimeoutExpired):
+        return {}
+
+def table(values, prefix):
+    prefix = prefix.rstrip(".") + "."
+    return {
+        oid[len(prefix):]: value
+        for oid, value in values.items()
+        if oid.startswith(prefix)
+    }
+
+def number(value):
+    try:
+        return int(value)
+    except (ValueError, TypeError):
+        return None
+
+def safe(value):
+    return "".join(c for c in str(value) if c.isprintable())
+
+def color(text, code):
+    if sys.stdout.isatty():
+        return f"\033[{code}m{text}\033[0m"
+    return text
+
+def bar(percent):
+    filled = round(percent / 5)
+    return "█" * filled + "░" * (20 - filled)
+
+description = query(
+    "snmpget", ".1.3.6.1.2.1.1.1.0"
+)
+
+model = description.get(".1.3.6.1.2.1.1.1.0")
+
+if not model:
+    sys.exit("ERROR: No valid SNMP response.")
+
+print("Host:   " + host)
+print("Device: " + safe(model))
+print("SNMP:   " + color("Connected", "92"))
+print()
+
+statuses = {
+    1: "Other",
+    2: "Unknown",
+    3: "Idle",
+    4: "Printing",
+    5: "Warmup"
+}
+
+status = query(
+    "snmpwalk", ".1.3.6.1.2.1.25.3.5.1.1"
+)
+
+for index, value in table(
+    status, ".1.3.6.1.2.1.25.3.5.1.1"
+).items():
+    print("Printer status:",
+          statuses.get(number(value), "Unknown"))
+
+print()
+print("========== CONSUMABLES ==========")
+print()
+
+base = ".1.3.6.1.2.1.43.11.1.1"
+supplies = query("snmpwalk", base)
+
+classes = table(supplies, base + ".4")
+names = table(supplies, base + ".6")
+maximum = table(supplies, base + ".8")
+levels = table(supplies, base + ".9")
+
+if not names:
+    print("Consumables information unavailable.")
+
+for index, name in names.items():
+
+    name = safe(name)
+    capacity = number(maximum.get(index))
+    level = number(levels.get(index))
+    supply_class = number(classes.get(index))
+
+    print(name)
+
+    if capacity is not None and level is not None \
+            and capacity > 0 and 0 <= level <= capacity:
+
+        percent = round(level / capacity * 100)
+
+        label = (
+            "Free capacity"
+            if supply_class == 4
+            else "Remaining"
+        )
+
+        code = "92"
+        if percent <= 10:
+            code = "91"
+        elif percent <= 20:
+            code = "93"
+
+        print(color(
+            f"  {bar(percent)} {percent:3d}% {label}",
+            code
+        ))
+
+        if percent <= 10:
+            print("  WARNING: Critical level")
+        elif percent <= 20:
+            print("  WARNING: Low level")
+
+    elif level == -3:
+        print("  Some supply or free space remaining")
+        print("  Exact level unavailable")
+
+    else:
+        print("  Level unavailable")
+
+    print()
+
+print("========== PRINT COUNTERS ==========")
+print()
+
+marker = ".1.3.6.1.2.1.43.10.2.1"
+counters = query("snmpwalk", marker + ".4")
+units = query("snmpwalk", marker + ".3")
+
+unit_map = {
+    7: "impressions",
+    8: "sheets",
+    11: "hours"
+}
+
+counts = table(counters, marker + ".4")
+counter_units = table(units, marker + ".3")
+
+for index, value in counts.items():
+    count = number(value)
+    unit = unit_map.get(
+        number(counter_units.get(index)),
+        "units"
+    )
+
+    if count is not None:
+        print(f"Total [{index}]: {count:,} {unit}")
+
+if not counts:
+    print("Print counters unavailable.")
+
+print()
+print("========================================")

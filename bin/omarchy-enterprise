@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+set -euo pipefail
+directory=$(cd -- "${BASH_SOURCE[0]%/*}/.." && pwd -P)
+if (( EUID == 0 )); then
+    if [[ $directory != /usr ]]; then
+        printf '%s\n' 'Run administrative diagnostics from the installed package.' >&2
+        exit 1
+    fi
+    source_dir=/usr/lib/omarchy-enterprise
+elif [[ -d "$directory/oe" ]]; then
+    source_dir=$directory
+else
+    source_dir=$directory/lib/omarchy-enterprise
+fi
+exec /usr/bin/python3 -IB -c '
+import runpy
+import sys
+
+sys.path.insert(0, sys.argv.pop(1))
+runpy.run_module("oe", run_name="__main__")
+' "$source_dir" "$@"

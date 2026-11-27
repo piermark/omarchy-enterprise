@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Omarchy Enterprise Installer
+Name[it]=Installazione di Omarchy Enterprise
+Comment=Review an existing installation or stage an offline configuration
+Comment[it]=Esamina un’installazione esistente o prepara una configurazione offline
+TryExec=/usr/bin/omarchy-enterprise
+Exec=/usr/bin/omarchy-enterprise provision-wizard
+Icon=system-software-install
+Terminal=false
+StartupWMClass=org.omarchy.EnterpriseInstaller
+Categories=System;

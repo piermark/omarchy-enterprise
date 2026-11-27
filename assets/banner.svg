@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 500" width="1600" height="500" role="img" aria-labelledby="title">
+<title id="title">Omarchy Enterprise 0.5.0 Public Preview</title>
+<rect x="0" y="0" width="1600" height="500" rx="0" fill="#191918" stroke="none"/>
+<path d="M84 429H1516" stroke="#52483a"/>
+<path d="M1090 133V77l61-35M1516 360v33l-49 29" fill="none" stroke="#52483a" stroke-width="2"/>
+<g transform="translate(1120 53) scale(1.54)"><path d="M128 15 226 72v89l-98 79-98-79V72Z" fill="#242321" stroke="#efb568" stroke-width="10" stroke-linejoin="round"/>
+<path d="M69 73h118v82H69zm39 102h40" fill="none" stroke="#faf3e8" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="m100 112 19 18 35-38" fill="none" stroke="#efb568" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></g>
+<rect x="84" y="112" width="5" height="29" rx="2" fill="#efb568" stroke="none"/>
+<text x="102" y="134" fill="#efb568" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="700">0.5.0  /  PUBLIC PREVIEW</text>
+<text x="84" y="249" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="91" font-weight="700">Omarchy Enterprise</text>
+<text x="84" y="310" fill="#faf3e8" font-family="Liberation Sans, sans-serif" font-size="34" font-weight="400">Bringing enterprise workstation capabilities to Omarchy Linux.</text>
+<text x="84" y="467" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="17" font-weight="700">INDEPENDENT PROJECT</text>
+</svg>

@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Omarchy Enterprise
+Comment=Open workstation diagnostics and enterprise resources
+Comment[it]=Apri la diagnostica della postazione e le risorse aziendali
+TryExec=/usr/bin/omarchy-enterprise
+Exec=/usr/bin/omarchy-enterprise desktop
+Icon=preferences-system
+Terminal=false
+StartupWMClass=org.omarchy.Enterprise
+Categories=System;

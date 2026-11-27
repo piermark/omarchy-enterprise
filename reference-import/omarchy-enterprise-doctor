@@ -1,0 +1,93 @@
+
+#!/bin/bash
+
+export LC_ALL=C
+
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+CYAN='\033[0;36m'
+YELLOW='\033[0;33m'
+RESET='\033[0m'
+
+PASSED=0
+FAILED=0
+
+check() {
+    local label="$1"
+    shift
+
+    if timeout 20s "$@" >/dev/null 2>&1; then
+        printf "${GREEN}[ OK ]${RESET} %s\n" "$label"
+        ((PASSED+=1))
+    else
+        printf "${RED}[FAIL]${RESET} %s\n" "$label"
+        ((FAILED+=1))
+    fi
+}
+
+section() {
+    printf "\n${CYAN}== %s ==${RESET}\n" "$1"
+}
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Please run with sudo."
+    exit 1
+fi
+
+clear
+
+echo "========================================"
+echo "     OMARCHY ENTERPRISE DOCTOR"
+echo "              v0.1.2"
+echo "========================================"
+
+section "Enterprise Identity"
+
+check "SSSD configuration" sssctl config-check
+check "SSSD service" systemctl is-active sssd
+check "SSSD autostart" systemctl is-enabled sssd
+check "Samba configuration" testparm -s
+check "Active Directory trust" /usr/local/bin/omarchy-enterprise-ad-testjoin
+check "Winbind service" systemctl is-active winbind
+check "Winbind autostart" systemctl is-enabled winbind
+check "Machine trust secret" wbinfo -t
+check "Kerberos keytab" klist -k /etc/krb5.keytab
+
+section "Desktop Environment"
+
+check "SDDM service" systemctl is-active sddm
+check "SDDM autostart" systemctl is-enabled sddm
+check "Nautilus file manager" bash -c 'command -v nautilus'
+check "SMB integration" pacman -Q gvfs-smb
+check "CIFS support" bash -c 'command -v mount.cifs'
+check "Credential storage" bash -c 'command -v secret-tool'
+
+section "Windows Integration"
+
+check "Docker service" systemctl is-active docker
+check "Docker autostart" systemctl is-enabled docker
+check "FreeRDP client" bash -c 'command -v xfreerdp3'
+
+section "Security and Recovery"
+
+check "Polkit service" systemctl is-active polkit
+check "Btrfs filesystem" test "$(findmnt -n -o FSTYPE /)" = btrfs
+check "Snapper configuration" snapper -c root list
+check "LUKS encryption" bash -c 'lsblk -n -o FSTYPE | grep -q crypto_LUKS'
+
+echo
+echo "========================================"
+printf "${GREEN}Passed: %s${RESET}\n" "$PASSED"
+printf "${RED}Failed: %s${RESET}\n" "$FAILED"
+echo "========================================"
+
+if (( FAILED == 0 )); then
+    printf "${GREEN}All configured checks passed.${RESET}\n"
+else
+    printf "${YELLOW}Some checks require attention.${RESET}\n"
+fi
+
+echo
+echo "No configuration changes were made."
+
+(( FAILED == 0 ))

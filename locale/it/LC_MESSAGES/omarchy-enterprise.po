@@ -1,0 +1,1173 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Omarchy Enterprise 0.2.0lab10m\n"
+"PO-Revision-Date: 2026-11-27 00:00+0000\n"
+"Last-Translator: Omarchy Enterprise Contributors\n"
+"Language-Team: Italian\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "AD administrator group"
+msgstr "Gruppo amministratori AD"
+
+msgid "AD authentication acceptance"
+msgstr "Collaudo dell’autenticazione AD"
+
+msgid "AD configuration presence"
+msgstr "Presenza della configurazione AD"
+
+msgid "Absent"
+msgstr "Assente"
+
+msgid "Absolute path to an empty private folder"
+msgstr "Percorso assoluto di una cartella privata vuota"
+
+msgid "Access and diagnostics"
+msgstr "Accesso e diagnostica"
+
+msgid "Access restricted"
+msgstr "Accesso riservato"
+
+msgid "Activating"
+msgstr "In attivazione"
+
+msgid "Active"
+msgstr "Attivo"
+
+msgid "Active Directory"
+msgstr "Active Directory"
+
+msgid "Active Directory configuration"
+msgstr "Configurazione di Active Directory"
+
+msgid "Active Directory integration preview"
+msgstr "Anteprima dell’integrazione Active Directory"
+
+msgid "Active Directory preview"
+msgstr "Anteprima di Active Directory"
+
+msgid "Add managed entries"
+msgstr "Aggiungi voci gestite"
+
+msgid "Add server or share"
+msgstr "Aggiungi server o condivisione"
+
+msgid "Advanced diagnostics"
+msgstr "Diagnostica avanzata"
+
+msgid "Allowed AD group"
+msgstr "Gruppo AD autorizzato"
+
+msgid "Apply"
+msgstr "Applica"
+
+msgid "Apply managed bookmark changes?"
+msgstr "Applicare le modifiche ai segnalibri gestiti?"
+
+msgid "Arch-compatible operating system"
+msgstr "Sistema operativo compatibile con Arch"
+
+msgid "Architecture"
+msgstr "Architettura"
+
+msgid "Ask the VM administrator to verify the effective policy for the selected Dockur container."
+msgstr "Chiedere all’amministratore della VM di verificare la politica effettiva per il container Dockur selezionato."
+
+msgid "Audit rules and status"
+msgstr "Regole e stato dell’audit"
+
+msgid "Audit service"
+msgstr "Servizio di audit"
+
+msgid "Authorized resources and managed Nautilus bookmarks."
+msgstr "Risorse autorizzate e segnalibri Nautilus gestiti."
+
+msgid "Authorized servers and shares"
+msgstr "Server e condivisioni autorizzati"
+
+msgid "Available"
+msgstr "Disponibile"
+
+msgid "Available updates: {count}"
+msgstr "Aggiornamenti disponibili: {count}"
+
+msgid "Before maintenance, verify snapshots, backups, local recovery and SSH access with an administrator."
+msgstr "Prima della manutenzione, verificare snapshot, copie di sicurezza, recupero locale e accesso SSH con un amministratore."
+
+msgid "Blocked"
+msgstr "Bloccato"
+
+msgid "CUPS configuration and queue availability."
+msgstr "Configurazione CUPS e disponibilità delle code."
+
+msgid "CUPS may require authorization to change queues. The existing printer settings application handles approval."
+msgstr "CUPS può richiedere un’autorizzazione per modificare le code. L’applicazione delle stampanti gestisce l’approvazione."
+
+msgid "CUPS queues"
+msgstr "Code CUPS"
+
+msgid "Cancel"
+msgstr "Annulla"
+
+msgid "Categorical backend diagnostics."
+msgstr "Risultati diagnostici per categoria."
+
+msgid "Certificate management"
+msgstr "Gestione dei certificati"
+
+msgid "Check"
+msgstr "Controlla"
+
+msgid "Check installed package files"
+msgstr "Controlla i file del pacchetto installato"
+
+msgid "Check repository updates"
+msgstr "Controlla gli aggiornamenti dei repository"
+
+msgid "Check repository updates?"
+msgstr "Controllare gli aggiornamenti dei repository?"
+
+msgid "Check the required AD fields, printer hostname or Windows image digest."
+msgstr "Verificare i campi AD obbligatori, il nome host della stampante o il digest dell’immagine Windows."
+
+msgid "Clean installation"
+msgstr "Installazione da zero"
+
+msgid "Close"
+msgstr "Chiudi"
+
+msgid "Compatibility mode"
+msgstr "Modalità compatibilità"
+
+msgid "Compliance"
+msgstr "Conformità"
+
+msgid "Configuration, services and login evidence."
+msgstr "Configurazione, servizi e risultati del collaudo dell’accesso."
+
+msgid "Configured"
+msgstr "Configurato"
+
+msgid "Connect to an approved endpoint using the existing FreeRDP client. Use the trusted terminal for the interactive connection."
+msgstr "Connettersi a un endpoint approvato con il client FreeRDP. Usare il terminale attendibile per la connessione interattiva."
+
+msgid "Container query access"
+msgstr "Accesso alla consultazione dei container"
+
+msgid "Current status"
+msgstr "Stato corrente"
+
+msgid "Current verified result"
+msgstr "Risultato verificato ora"
+
+msgid "Custom theme configured"
+msgstr "Tema personalizzato configurato"
+
+msgid "DNS domain"
+msgstr "Dominio DNS"
+
+msgid "Deactivating"
+msgstr "In disattivazione"
+
+msgid "Desired start policy"
+msgstr "Politica di avvio prevista"
+
+msgid "Disabled"
+msgstr "Disabilitato"
+
+msgid "Docker runtime"
+msgstr "Ambiente di esecuzione Docker"
+
+msgid "Docker service"
+msgstr "Servizio Docker"
+
+msgid "Dockur image by SHA-256 digest (optional)"
+msgstr "Digest SHA-256 dell’immagine Dockur (facoltativo)"
+
+msgid "Draft could not be loaded"
+msgstr "Impossibile caricare la bozza"
+
+msgid "Draft file server entries"
+msgstr "Voci nella bozza dei file server"
+
+msgid "Edit"
+msgstr "Modifica"
+
+msgid "Edit file server entry"
+msgstr "Modifica voce del file server"
+
+msgid "Effective restart policy"
+msgstr "Politica di riavvio effettiva"
+
+msgid "Empty theme setting"
+msgstr "Impostazione del tema vuota"
+
+msgid "Enter a unique label, a valid SMB address without credentials and valid groups."
+msgstr "Inserire un’etichetta univoca, un indirizzo SMB valido senza credenziali e gruppi validi."
+
+msgid "Enterprise Control Center"
+msgstr "Centro di controllo Enterprise"
+
+msgid "Enterprise Guard"
+msgstr "Enterprise Guard"
+
+msgid "Enterprise profile"
+msgstr "Profilo Enterprise"
+
+msgid "Existing AD integration"
+msgstr "Integrazione AD esistente"
+
+msgid "Existing Enterprise review"
+msgstr "Verifica di Enterprise esistente"
+
+msgid "Existing standalone"
+msgstr "Postazione autonoma esistente"
+
+msgid "Failed"
+msgstr "Non riuscito"
+
+msgid "File Server policy"
+msgstr "Criterio dei file server"
+
+msgid "File Servers"
+msgstr "File server"
+
+msgid "File server configuration"
+msgstr "Configurazione dei file server"
+
+msgid "File server draft"
+msgstr "Bozza dei file server"
+
+msgid "For offline image rollback or interrupted transaction recovery, use the existing provisioning commands."
+msgstr "Per annullare le modifiche all’immagine offline o recuperare una transazione interrotta, usare i comandi di predisposizione esistenti."
+
+msgid "FreeRDP client"
+msgstr "Client FreeRDP"
+
+msgid "Friendly label"
+msgstr "Etichetta descrittiva"
+
+msgid "Full Enterprise"
+msgstr "Enterprise completo"
+
+msgid "Full inbound acceptance"
+msgstr "Collaudo completo delle connessioni in entrata"
+
+msgid "GTK4, Libadwaita or the graphical display is unavailable. Using the Zenity fallback."
+msgstr "GTK4, Libadwaita o lo schermo non sono disponibili. Verrà usata l’interfaccia alternativa Zenity."
+
+msgid "Hardware and software summary."
+msgstr "Riepilogo di hardware e software."
+
+msgid "Host management ownership"
+msgstr "Presa in carico della postazione"
+
+msgid "Inactive"
+msgstr "Inattivo"
+
+msgid "Inbound RDP"
+msgstr "RDP in entrata"
+
+msgid "Inbound Remote Desktop"
+msgstr "Desktop remoto in entrata"
+
+msgid "Inbound capability and qualification."
+msgstr "Disponibilità e qualificazione delle connessioni in entrata."
+
+msgid "Independent remote sessions"
+msgstr "Sessioni remote indipendenti"
+
+msgid "Installation summary"
+msgstr "Riepilogo dell’installazione"
+
+msgid "Installation, services and workstation readiness."
+msgstr "Installazione, servizi e stato di preparazione della postazione."
+
+msgid "Installed Enterprise version"
+msgstr "Versione Enterprise installata"
+
+msgid "Installed package count"
+msgstr "Numero di pacchetti installati"
+
+msgid "Installer"
+msgstr "Installazione"
+
+msgid "Integrity Guard"
+msgstr "Controllo di integrità"
+
+msgid "Integrity, audit, compliance and certificates."
+msgstr "Integrità, audit, conformità e certificati."
+
+msgid "Inventory"
+msgstr "Inventario"
+
+msgid "KVM device access"
+msgstr "Accesso al dispositivo KVM"
+
+msgid "Kerberos session ticket"
+msgstr "Ticket Kerberos della sessione"
+
+msgid "Kernel"
+msgstr "Kernel"
+
+msgid "Lab package prerequisites"
+msgstr "Pacchetti richiesti per il laboratorio"
+
+msgid "Live deployment"
+msgstr "Installazione sul sistema in uso"
+
+msgid "Live legacy migration"
+msgstr "Migrazione sul sistema in uso"
+
+msgid "Live update readiness"
+msgstr "Preparazione all’aggiornamento del sistema"
+
+msgid "Load reviewed draft"
+msgstr "Carica bozza revisionata"
+
+msgid "Local prerequisites"
+msgstr "Prerequisiti locali"
+
+msgid "Logical CPUs"
+msgstr "CPU logiche"
+
+msgid "Machine trust and SSSD validation require an administrator. Service activity and login acceptance are independent."
+msgstr "La convalida della relazione di trust e di SSSD richiede un amministratore. Lo stato dei servizi e il collaudo dell’accesso sono indipendenti."
+
+msgid "Machine trust verification"
+msgstr "Verifica della relazione di trust"
+
+msgid "Managed launch"
+msgstr "Avvio gestito"
+
+msgid "Managed policy"
+msgstr "Criterio gestito"
+
+msgid "Managed upgrade"
+msgstr "Aggiornamento gestito"
+
+msgid "Manual start only"
+msgstr "Solo avvio manuale"
+
+msgid "Manual-start workspace and client connection guidance."
+msgstr "Ambiente ad avvio manuale e indicazioni per connettere il client."
+
+msgid "Native mode"
+msgstr "Modalità nativa"
+
+msgid "Nautilus will use the refreshed bookmarks. A private rollback checkpoint is kept."
+msgstr "Nautilus userà i segnalibri aggiornati. Verrà conservato un punto di ripristino privato."
+
+msgid "NetBIOS workgroup"
+msgstr "Gruppo di lavoro NetBIOS"
+
+msgid "No authorized resources to show"
+msgstr "Nessuna risorsa autorizzata da mostrare"
+
+msgid "No current theme found"
+msgstr "Nessun tema corrente rilevato"
+
+msgid "No draft entries"
+msgstr "Nessuna voce nella bozza"
+
+msgid "No updates found"
+msgstr "Nessun aggiornamento rilevato"
+
+msgid "No valid ticket"
+msgstr "Nessun ticket valido"
+
+msgid "None"
+msgstr "Nessuno"
+
+msgid "Not configured"
+msgstr "Non configurato"
+
+msgid "Not tested"
+msgstr "Non verificato"
+
+msgid "Off"
+msgstr "Disattivato"
+
+msgid "Offline rollback verified"
+msgstr "Ripristino offline verificato"
+
+msgid "Offline staging"
+msgstr "Preparazione offline"
+
+msgid "Offline staging and rollback"
+msgstr "Preparazione e ripristino offline"
+
+msgid "Offline staging preview"
+msgstr "Anteprima della preparazione offline"
+
+msgid "Offline transaction verified."
+msgstr "Transazione offline verificata."
+
+msgid "Omarchy Enterprise"
+msgstr "Omarchy Enterprise"
+
+msgid "Open"
+msgstr "Apri"
+
+msgid "Open in Nautilus"
+msgstr "Apri in Nautilus"
+
+msgid "Open printer settings"
+msgstr "Apri le impostazioni delle stampanti"
+
+msgid "Open printer settings?"
+msgstr "Aprire le impostazioni delle stampanti?"
+
+msgid "Operation cancelled."
+msgstr "Operazione annullata."
+
+msgid "Operation failed. Review prerequisites and retry."
+msgstr "Operazione non riuscita. Verificare i prerequisiti e riprovare."
+
+msgid "Optional Windows plan"
+msgstr "Piano Windows facoltativo"
+
+msgid "Overview"
+msgstr "Panoramica"
+
+msgid "PAM integration"
+msgstr "Integrazione PAM"
+
+msgid "PAM login acceptance"
+msgstr "Collaudo dell’accesso PAM"
+
+msgid "Package integrity"
+msgstr "Integrità del pacchetto"
+
+msgid "Package integrity and recovery readiness."
+msgstr "Integrità del pacchetto e preparazione al recupero."
+
+msgid "Paused"
+msgstr "In pausa"
+
+msgid "Peripheral redirection"
+msgstr "Reindirizzamento delle periferiche"
+
+msgid "Preferred writable controllers (optional)"
+msgstr "Controller scrivibili preferiti (facoltativo)"
+
+msgid "Prepare a disposable installation or review existing workstation metadata. Live deployment is blocked."
+msgstr "Preparare un’installazione temporanea o verificare i metadati della postazione esistente. L’installazione sul sistema in uso è bloccata."
+
+msgid "Prerequisites"
+msgstr "Prerequisiti"
+
+msgid "Preview Nautilus bookmark refresh"
+msgstr "Anteprima dell’aggiornamento dei segnalibri Nautilus"
+
+msgid "Preview mode. No files were staged."
+msgstr "Modalità anteprima. Nessun file è stato predisposto."
+
+msgid "Preview offline changes"
+msgstr "Anteprima delle modifiche offline"
+
+msgid "Previously recorded result"
+msgstr "Risultato registrato in precedenza"
+
+msgid "Printer availability"
+msgstr "Disponibilità delle stampanti"
+
+msgid "Printer configuration"
+msgstr "Configurazione della stampante"
+
+msgid "Printer monitor hostname (optional)"
+msgstr "Nome host della stampante da monitorare (facoltativo)"
+
+msgid "Printer monitoring"
+msgstr "Monitoraggio stampante"
+
+msgid "Printer settings"
+msgstr "Impostazioni delle stampanti"
+
+msgid "Printers"
+msgstr "Stampanti"
+
+msgid "Private draft saved"
+msgstr "Bozza privata salvata"
+
+msgid "Public certificate inspection"
+msgstr "Ispezione dei certificati pubblici"
+
+msgid "Qualified groups, comma separated"
+msgstr "Gruppi qualificati, separati da virgole"
+
+msgid "Qualified inbound backend"
+msgstr "Backend in entrata qualificato"
+
+msgid "Queue administration authorization"
+msgstr "Autorizzazione per amministrare le code"
+
+msgid "Queue changes may affect other users."
+msgstr "Le modifiche alle code possono interessare altri utenti."
+
+msgid "Recorded installation review"
+msgstr "Verifica dell’installazione registrata"
+
+msgid "Recovery prerequisites"
+msgstr "Prerequisiti per il recupero"
+
+msgid "Refresh current page"
+msgstr "Aggiorna la pagina corrente"
+
+msgid "Reloading"
+msgstr "In ricaricamento"
+
+msgid "Remote Desktop"
+msgstr "Desktop remoto"
+
+msgid "Remove"
+msgstr "Rimuovi"
+
+msgid "Remove draft entry?"
+msgstr "Rimuovere la voce dalla bozza?"
+
+msgid "Remove managed entries"
+msgstr "Rimuovi voci gestite"
+
+msgid "Removing"
+msgstr "In rimozione"
+
+msgid "Repository updates"
+msgstr "Aggiornamenti dei repository"
+
+msgid "Restarting"
+msgstr "In riavvio"
+
+msgid "Restore the disposable folder to its previous managed state."
+msgstr "Ripristinare la cartella temporanea allo stato gestito precedente."
+
+msgid "Restore the previous managed entries and preserve personal edits."
+msgstr "Ripristinare le voci gestite precedenti e conservare le modifiche personali."
+
+msgid "Return to page"
+msgstr "Torna alla pagina"
+
+msgid "Review storage on an approved path with the existing read-only diagnostics command."
+msgstr "Verificare l’archiviazione su un percorso approvato con il comando diagnostico in sola lettura."
+
+msgid "Review the workstation or stage a disposable installation."
+msgstr "Verifica la postazione o prepara un’installazione temporanea."
+
+msgid "Roll back"
+msgstr "Ripristina"
+
+msgid "Roll back managed bookmarks"
+msgstr "Ripristina i segnalibri gestiti"
+
+msgid "Roll back managed bookmarks?"
+msgstr "Ripristinare i segnalibri gestiti?"
+
+msgid "Roll back staging?"
+msgstr "Annullare la preparazione?"
+
+msgid "Roll back this staging transaction"
+msgstr "Annulla questa transazione offline"
+
+msgid "Running"
+msgstr "In esecuzione"
+
+msgid "SDDM configuration"
+msgstr "Configurazione SDDM"
+
+msgid "SDDM login acceptance"
+msgstr "Collaudo dell’accesso SDDM"
+
+msgid "SDDM service"
+msgstr "Servizio SDDM"
+
+msgid "SDDM theme"
+msgstr "Tema SDDM"
+
+msgid "SMB hostname or share URL"
+msgstr "Nome host SMB o URL della condivisione"
+
+msgid "SSSD configuration validation"
+msgstr "Convalida della configurazione SSSD"
+
+msgid "SSSD service"
+msgstr "Servizio SSSD"
+
+msgid "Samba configuration"
+msgstr "Configurazione di Samba"
+
+msgid "Save"
+msgstr "Salva"
+
+msgid "Save a local policy draft for administrator review."
+msgstr "Salva una bozza locale del criterio per la revisione amministrativa."
+
+msgid "Save drafts for administrator review. The managed policy controls authorized resources."
+msgstr "Salva le bozze per la revisione amministrativa. Il criterio gestito determina quali risorse sono autorizzate."
+
+msgid "Save entry"
+msgstr "Salva voce"
+
+msgid "Save private draft"
+msgstr "Salva bozza privata"
+
+msgid "Save private draft?"
+msgstr "Salvare la bozza privata?"
+
+msgid "Saved installation profile"
+msgstr "Profilo d’installazione salvato"
+
+msgid "Security"
+msgstr "Sicurezza"
+
+msgid "Security and policy"
+msgstr "Sicurezza e criteri"
+
+msgid "Security configuration review"
+msgstr "Verifica della configurazione di sicurezza"
+
+msgid "Select a valid local SMB policy."
+msgstr "Selezionare un criterio SMB locale valido."
+
+msgid "Selected profile"
+msgstr "Profilo selezionato"
+
+msgid "Selected profile prerequisites"
+msgstr "Prerequisiti del profilo selezionato"
+
+msgid "Snapshot and backup readiness"
+msgstr "Preparazione di snapshot e copie di sicurezza"
+
+msgid "Snapshot tool"
+msgstr "Strumento per snapshot"
+
+msgid "Stage files"
+msgstr "Predisponi i file"
+
+msgid "Stage files in the disposable folder?"
+msgstr "Predisporre i file nella cartella temporanea?"
+
+msgid "Standalone"
+msgstr "Postazione autonoma"
+
+msgid "Step {step} of {total} · {title}"
+msgstr "Passaggio {step} di {total} · {title}"
+
+msgid "Stopped"
+msgstr "Arrestato"
+
+msgid "Storage readiness"
+msgstr "Preparazione dell’archiviazione"
+
+msgid "The existing update check contacts package mirrors."
+msgstr "Il controllo degli aggiornamenti esistente contatta i mirror dei pacchetti."
+
+msgid "The preview uses the managed policy. Personal bookmarks are preserved."
+msgstr "L’anteprima usa il criterio gestito. I segnalibri personali vengono conservati."
+
+msgid "The previous managed state was restored."
+msgstr "Lo stato gestito precedente è stato ripristinato."
+
+msgid "The transaction can be rolled back from this wizard."
+msgstr "La transazione può essere annullata da questa procedura guidata."
+
+msgid "This wizard stages policy files in a disposable directory. An administrator reviews recovery and policy before any deployment."
+msgstr "Questa procedura predispone i file dei criteri in una cartella temporanea. Prima dell’installazione, un amministratore verifica il recupero e i criteri."
+
+msgid "Timed out"
+msgstr "Tempo scaduto"
+
+msgid "Toggle navigation"
+msgstr "Mostra o nascondi la navigazione"
+
+msgid "Unavailable"
+msgstr "Non disponibile"
+
+msgid "Unknown"
+msgstr "Sconosciuto"
+
+msgid "Unverified"
+msgstr "Da verificare"
+
+msgid "Update discovery tool"
+msgstr "Strumento per rilevare aggiornamenti"
+
+msgid "Update readiness"
+msgstr "Preparazione all’aggiornamento"
+
+msgid "Updates & Recovery"
+msgstr "Aggiornamenti e recupero"
+
+msgid "Use a fully qualified SMB hostname. A blank group list makes the resource visible to all."
+msgstr "Usare un nome host SMB completo. Lasciare vuoto l’elenco dei gruppi rende la risorsa visibile a tutti."
+
+msgid "Use an empty private folder with mode 0700 and review all fields."
+msgstr "Usare una cartella privata vuota con permessi 0700 e verificare tutti i campi."
+
+msgid "Use an empty, user-owned folder with mode 0700. Recovery commands apply to that folder only."
+msgstr "Usare una cartella vuota di propria proprietà con permessi 0700. I comandi di recupero si applicano solo a quella cartella."
+
+msgid "Use synthetic settings for disposable AD testing. Domain enrollment and login require separate acceptance."
+msgstr "Usare configurazioni sintetiche per il collaudo AD temporaneo. L’accesso al dominio e il login richiedono collaudi separati."
+
+msgid "Use the trusted administrator console for Guard checks, compliance, audit status and certificate management."
+msgstr "Usare la console amministrativa attendibile per i controlli Guard, la conformità, lo stato dell’audit e la gestione dei certificati."
+
+msgid "Welcome"
+msgstr "Benvenuto"
+
+msgid "Winbind service"
+msgstr "Servizio Winbind"
+
+msgid "Windows VM"
+msgstr "VM Windows"
+
+msgid "Windows containers"
+msgstr "Container Windows"
+
+msgid "Windows is optional. The plan uses manual start and requires licensing and runtime review."
+msgstr "Windows è facoltativo. Il piano prevede l’avvio manuale e richiede la verifica della licenza e dell’ambiente di esecuzione."
+
+msgid "Windows plan"
+msgstr "Piano Windows"
+
+msgid "Windows start policy"
+msgstr "Politica di avvio di Windows"
+
+msgid "Working…"
+msgstr "Operazione in corso…"
+
+msgid "Workstation detection"
+msgstr "Rilevamento della postazione"
+
+msgid "_Back"
+msgstr "_Indietro"
+
+msgid "_Next"
+msgstr "_Avanti"
+
+msgid "x86_64 architecture"
+msgstr "Architettura x86_64"
+
+msgid "Navigation"
+msgstr "Navigazione"
+
+msgid "Workstation tools, printing and recovery."
+msgstr "Strumenti della postazione, stampa e ripristino."
+
+msgid "Workstation tools with an offline directory and Kerberos planning profile."
+msgstr "Strumenti della postazione con pianificazione offline di directory e Kerberos."
+
+msgid "Directory planning and enterprise administration with an optional Windows workspace."
+msgstr "Pianificazione della directory e amministrazione aziendale con ambiente Windows opzionale."
+
+msgid "Disposable administration"
+msgstr "Amministrazione in ambiente temporaneo"
+
+msgid "Disposable target"
+msgstr "Ambiente temporaneo"
+
+msgid "Disposable target status"
+msgstr "Stato dell’ambiente temporaneo"
+
+msgid "Synthetic backend"
+msgstr "Backend sintetico"
+
+msgid "Create disposable target"
+msgstr "Crea ambiente temporaneo"
+
+msgid "Inspect disposable target"
+msgstr "Esamina ambiente temporaneo"
+
+msgid "Action"
+msgstr "Azione"
+
+msgid "Synthetic role"
+msgstr "Ruolo sintetico"
+
+msgid "Review synthetic changes"
+msgstr "Rivedi le modifiche sintetiche"
+
+msgid "Apply the reviewed action to this disposable target?"
+msgstr "Applicare l’azione esaminata a questo ambiente temporaneo?"
+
+msgid "Preview only"
+msgstr "Solo anteprima"
+
+msgid "Preview synthetic action"
+msgstr "Anteprima dell’azione sintetica"
+
+msgid "Plan deployment"
+msgstr "Pianifica la distribuzione"
+
+msgid "Roll back configuration"
+msgstr "Ripristina la configurazione"
+
+msgid "Resume transaction"
+msgstr "Riprendi la transazione"
+
+msgid "Abort transaction"
+msgstr "Interrompi la transazione"
+
+msgid "Edit share policy"
+msgstr "Modifica i criteri delle condivisioni"
+
+msgid "Synchronize login bookmarks"
+msgstr "Sincronizza i segnalibri all’accesso"
+
+msgid "Restore managed bookmarks"
+msgstr "Ripristina i segnalibri gestiti"
+
+msgid "Recover bookmark transaction"
+msgstr "Recupera la transazione dei segnalibri"
+
+msgid "Configure printer queues"
+msgstr "Configura le code di stampa"
+
+msgid "Configure Windows VM"
+msgstr "Configura la VM Windows"
+
+msgid "Simulate VM start"
+msgstr "Simula l’avvio della VM"
+
+msgid "Simulate VM stop"
+msgstr "Simula l’arresto della VM"
+
+msgid "Viewer"
+msgstr "Lettore"
+
+msgid "Operator"
+msgstr "Operatore"
+
+msgid "Administrator"
+msgstr "Amministratore"
+
+msgid "Real operating-system integration"
+msgstr "Integrazione con il sistema operativo"
+
+msgid "Real read-only operation"
+msgstr "Operazione reale in sola lettura"
+
+msgid "Operational preview"
+msgstr "Anteprima operativa"
+
+msgid "Include printing dependencies"
+msgstr "Includi le dipendenze di stampa"
+
+msgid "Check local dependencies"
+msgstr "Verifica le dipendenze locali"
+
+msgid "Administrator approval required for system policy deployment."
+msgstr "L'installazione dei criteri di sistema richiede l'approvazione dell'amministratore."
+
+msgid "Clean-host deployment unqualified. Domain enrollment blocked."
+msgstr "Installazione su host pulito non qualificata. Aggiunta al dominio bloccata."
+
+msgid "Preview operational bookmarks"
+msgstr "Anteprima dei segnalibri operativi"
+
+msgid "Discover local CUPS queues"
+msgstr "Rileva le code CUPS locali"
+
+msgid "Review driverless queue"
+msgstr "Esamina la coda senza driver"
+
+msgid "Set as default in the plan"
+msgstr "Imposta come predefinita nel piano"
+
+msgid "Queue changes implemented but unqualified."
+msgstr "Le modifiche alle code sono implementate e in attesa di qualifica."
+
+msgid "Review manually started Windows VM"
+msgstr "Esamina la VM Windows ad avvio manuale"
+
+msgid "Container lifecycle implemented but unqualified. Inbound RDP blocked."
+msgstr "Ciclo di vita del contenitore implementato e in attesa di qualifica. RDP in ingresso bloccato."
+
+msgid "Administrator approval required for operational rollback or recovery."
+msgstr "Il ripristino operativo richiede l'approvazione dell'amministratore."
+
+msgid "Installed"
+msgstr "Installato"
+
+msgid "Missing"
+msgstr "Mancante"
+
+msgid "No installed queues"
+msgstr "Nessuna coda installata"
+
+msgid "Storage filesystem"
+msgstr "File system di archiviazione"
+
+msgid "Available space"
+msgstr "Spazio disponibile"
+
+msgid "Sufficient"
+msgstr "Sufficiente"
+
+msgid "Insufficient"
+msgstr "Insufficiente"
+
+msgid "Eligible resources"
+msgstr "Risorse autorizzate"
+
+msgid "Managed queue name"
+msgstr "Nome della coda gestita"
+
+msgid "IPP or IPPS endpoint"
+msgstr "Endpoint IPP o IPPS"
+
+msgid "Reviewed Dockur image digest"
+msgstr "Digest dell’immagine Dockur verificata"
+
+msgid "Virtual CPUs"
+msgstr "CPU virtuali"
+
+msgid "Memory in GiB"
+msgstr "Memoria in GiB"
+
+msgid "Disk in GiB"
+msgstr "Disco in GiB"
+
+msgid "VM name"
+msgstr "Nome della VM"
+
+msgid "Memory in MiB"
+msgstr "Memoria in MiB"
+
+msgid "Disposable storage name"
+msgstr "Nome dell’archiviazione temporanea"
+
+msgid "Managed container ID"
+msgstr "ID del contenitore gestito"
+
+msgid "Existing SMB URL"
+msgstr "URL SMB esistente"
+
+msgid "Default queue"
+msgstr "Coda predefinita"
+
+msgid "Invalid input"
+msgstr "Dati non validi"
+
+msgid "Review the action fields."
+msgstr "Controlla i campi dell’operazione."
+
+msgid "Disposable laboratory tools"
+msgstr "Strumenti di laboratorio usa e getta"
+
+msgid "Select the private staging folder and verify its transaction state."
+msgstr "Seleziona la cartella privata di preparazione e verifica lo stato della transazione."
+
+msgid "Only the reviewed disposable transaction can be changed."
+msgstr "L'operazione riguarda esclusivamente la transazione di prova esaminata."
+
+msgid "Continue"
+msgstr "Continua"
+
+msgid "Queue drafts are for review. Staging does not create CUPS queues."
+msgstr "Le bozze sono destinate alla revisione. La preparazione non crea code CUPS."
+
+msgid "Dedicated storage directory"
+msgstr "Cartella di archiviazione dedicata"
+
+msgid "Managed printer draft"
+msgstr "Bozza delle stampanti gestite"
+
+msgid "Resume interrupted staging"
+msgstr "Riprendi la preparazione interrotta"
+
+msgid "Abort interrupted staging"
+msgstr "Annulla la preparazione interrotta"
+
+msgid "Roll back completed staging"
+msgstr "Ripristina lo stato precedente alla preparazione"
+
+msgid "Staged"
+msgstr "Preparato"
+
+msgid "Installed administration"
+msgstr "Amministrazione del sistema installato"
+
+msgid "Review the current plan and qualification status."
+msgstr "Esamina il piano corrente e lo stato di qualifica."
+
+msgid "Review workstation prerequisites"
+msgstr "Esamina i prerequisiti della postazione"
+
+msgid "Omarchy version"
+msgstr "Versione di Omarchy"
+
+msgid "Available system storage"
+msgstr "Spazio disponibile sul sistema"
+
+msgid "Review system policy handoff"
+msgstr "Esamina la consegna dei criteri di sistema"
+
+msgid "Deployment profile"
+msgstr "Profilo di distribuzione"
+
+msgid "Use an ordinary terminal to review, synchronize or recover operational bookmarks."
+msgstr "Usa un terminale senza privilegi per esaminare, sincronizzare o recuperare i segnalibri operativi."
+
+msgid "Review driverless queues"
+msgstr "Esamina le code senza driver"
+
+msgid "Discover managed Windows VM"
+msgstr "Individua la VM Windows gestita"
+
+msgid "Check CUPS availability and choose queue names that are still free."
+msgstr "Verifica la disponibilità di CUPS e scegli nomi di coda ancora liberi."
+
+msgid "Windows edition (11, 11l, 11e)"
+msgstr "Edizione di Windows (11, 11l, 11e)"
+
+msgid "Loopback RDP port (optional)"
+msgstr "Porta RDP su loopback (facoltativa)"
+
+msgid "Guest certificate DNS name"
+msgstr "Nome DNS del certificato del sistema guest"
+
+msgid "Guest account"
+msgstr "Account del sistema guest"
+
+msgid "Check the image digest, resource sizes, storage path and optional guest endpoint."
+msgstr "Verifica il digest dell'immagine, le risorse, il percorso di archiviazione e l'eventuale endpoint del sistema guest."
+
+msgid "Local managed-container discovery is unavailable in this session."
+msgstr "Il rilevamento dei container gestiti locali non è disponibile in questa sessione."
+
+msgid "Use a trusted administrator terminal to review drift and available rollback or recovery. Review a fresh token before approving each action."
+msgstr "Usa un terminale amministrativo fidato per verificare le modifiche esterne e le opzioni di ripristino o recupero. Esamina un token nuovo prima di ogni approvazione."
+
+msgid "Installed queues"
+msgstr "Code installate"
+
+msgid "Windows guest connectivity"
+msgstr "Connettività del sistema guest Windows"
+
+msgid "Startup policy"
+msgstr "Criteri di avvio"
+
+msgid "Lifecycle qualification"
+msgstr "Qualifica del ciclo di vita"
+
+msgid "Managed Windows VM"
+msgstr "VM Windows gestita"
+
+msgid "Default"
+msgstr "Predefinito"
+
+msgid "This saves a private draft for the installed administrator helper."
+msgstr "Salva una bozza privata per lo strumento amministrativo installato."
+
+msgid "Save handoff"
+msgstr "Salva la consegna"
+
+msgid "Administrator handoff saved"
+msgstr "Consegna all'amministratore salvata"
+
+msgid "In a trusted administrator terminal, run the first command to review ownership, conflicts and prerequisites. Use its fresh token in the second command only after approval."
+msgstr "In un terminale amministrativo fidato, esegui il primo comando per verificare proprietà, conflitti e prerequisiti. Usa il nuovo token nel secondo comando solo dopo l'approvazione."
+
+msgid "Edit managed printer"
+msgstr "Modifica stampante gestita"
+
+msgid "Use a unique oe- queue name and a driverless IPP or IPPS endpoint."
+msgstr "Usa un nome di coda univoco con prefisso oe- e un endpoint IPP o IPPS senza driver."
+
+msgid "Add printer"
+msgstr "Aggiungi stampante"
+
+msgid "Native configuration preview"
+msgstr "Anteprima della configurazione nativa"
+
+msgid "Enrollment and interactive login require separate qualification."
+msgstr "L'adesione al dominio e l'accesso interattivo richiedono una qualifica separata."
+
+msgid "Review directory settings"
+msgstr "Esamina le impostazioni della directory"
+
+msgid "Review unavailable"
+msgstr "Revisione non disponibile"
+
+msgid "Check the SMB entries and deployment profile."
+msgstr "Verifica le voci SMB e il profilo di distribuzione."
+
+msgid "An empty policy clears the managed share list after administrator approval."
+msgstr "Un criterio vuoto svuota l'elenco delle condivisioni gestite dopo l'approvazione dell'amministratore."
+
+msgid "Printing dependencies"
+msgstr "Dipendenze di stampa"
+
+msgid "Correct the queue name and endpoint."
+msgstr "Correggi il nome della coda e l'endpoint."
+
+msgid "Check the domain, workgroup and group names."
+msgstr "Verifica dominio, gruppo di lavoro e nomi dei gruppi."
+
+msgid "Included"
+msgstr "Incluse"
+
+msgid "Optional"
+msgstr "Facoltativo"
+
+msgid "All users"
+msgstr "Tutti gli utenti"
+
+msgid "CREATE"
+msgstr "CREA"
+
+msgid "UPDATE"
+msgstr "AGGIORNA"
+
+msgid "REMOVE"
+msgstr "RIMUOVI"
+
+msgid "UNCHANGED"
+msgstr "INVARIATO"
+
+msgid "Idle"
+msgstr "In attesa"
+
+msgid "Printing"
+msgstr "Stampa in corso"
+
+
+msgid "created"
+msgstr "Creato"
+
+msgid "running"
+msgstr "In esecuzione"
+
+msgid "exited"
+msgstr "Arrestato"
+
+msgid "Managed bookmarks verified"
+msgstr "Preferiti gestiti verificati"
+
+msgid "Personal bookmarks are preserved."
+msgstr "I preferiti personali vengono conservati."
+
+msgid "No pending bookmark transaction"
+msgstr "Nessuna transazione dei preferiti in sospeso"
+
+msgid "Save printer definitions"
+msgstr "Salva le definizioni delle stampanti"
+
+msgid "Load printer definitions"
+msgstr "Carica le definizioni delle stampanti"
+
+msgid "Printer definitions saved"
+msgstr "Definizioni delle stampanti salvate"
+
+msgid "GTK4, Libadwaita or the graphical display is unavailable."
+msgstr "GTK4, Libadwaita o il display grafico non sono disponibili."
+
+msgid "Accept managed bookmarks"
+msgstr "Accetta i preferiti gestiti"
+
+msgid "Keep the current entries and finalize their rollback checkpoint."
+msgstr "Mantieni le voci attuali e chiudi il punto di ripristino."

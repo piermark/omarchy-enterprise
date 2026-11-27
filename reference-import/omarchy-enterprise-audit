@@ -1,0 +1,98 @@
+#!/bin/bash
+
+set -euo pipefail
+
+export LC_ALL=C
+export PATH=/usr/local/bin:/usr/bin:/usr/sbin
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Please run with sudo."
+    exit 1
+fi
+
+echo "========================================"
+echo "      OMARCHY ENTERPRISE AUDIT"
+echo "              v0.1.0"
+echo "========================================"
+echo
+
+case "${1:-status}" in
+
+    status)
+        echo "== Audit Service =="
+        systemctl is-active auditd.service || true
+
+        echo
+        echo "== Startup Configuration =="
+        systemctl is-enabled auditd.service || true
+
+        echo
+        echo "== Kernel Audit Status =="
+        auditctl -s
+
+        echo
+        echo "== Enterprise Audit Rules =="
+        auditctl -l | grep -E 'oe_identity|oe_config' \
+            || echo "No Enterprise rules loaded."
+
+        echo
+        echo "== Audit Log Storage =="
+
+        if [[ -d /var/log/audit ]]; then
+            du -sh /var/log/audit
+            df -h /var/log/audit
+        else
+            echo "Audit log directory not available."
+        fi
+        ;;
+
+    rules)
+        auditctl -l
+        ;;
+
+    identity)
+        echo "== Recent Identity Configuration Events =="
+        ausearch -k oe_identity -ts today -i
+        ;;
+
+    configuration)
+        echo "== Recent Enterprise Configuration Events =="
+        ausearch -k oe_config -ts today -i
+        ;;
+
+    authentication)
+        echo "== Recent Authentication Events =="
+        ausearch \
+            -m USER_AUTH,USER_LOGIN,USER_ACCT \
+            -ts today -i
+        ;;
+
+    summary)
+        echo "== Authentication Summary =="
+        aureport --auth --summary -ts today
+
+        echo
+        echo "== Login Summary =="
+        aureport --login --summary -ts today
+        ;;
+
+    failures)
+        echo "== Failed Authentication Events =="
+        ausearch \
+            -m USER_AUTH,USER_LOGIN \
+            --success no -ts today -i
+        ;;
+
+    *)
+        echo "Available commands:"
+        echo "  status"
+        echo "  rules"
+        echo "  identity"
+        echo "  configuration"
+        echo "  authentication"
+        echo "  summary"
+        echo "  failures"
+        exit 1
+        ;;
+
+esac

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Omarchy Enterprise Policy Refresh
+Exec=omarchy-enterprise policy-refresh --login
+NoDisplay=true
+Terminal=false

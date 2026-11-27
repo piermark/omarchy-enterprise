@@ -1,0 +1,199 @@
+#!/bin/bash
+
+set -euo pipefail
+export LC_ALL=C
+export PATH=/usr/local/bin:/usr/bin:/usr/sbin
+umask 077
+
+require_root() {
+    if [[ $EUID -ne 0 ]]; then
+        echo "Please run with sudo."
+        exit 1
+    fi
+}
+
+
+doctor_report_ok() {
+    local CLEAN
+
+    CLEAN=$(printf '%s\n' "$1" |
+        sed -E 's/\x1B\[[0-?]*[ -/]*[@-~]//g' |
+        tr -d '\r') || return 1
+
+    grep -Eq '^[[:space:]]*Passed:[[:space:]]+[1-9][0-9]*[[:space:]]*$' \
+        <<< "$CLEAN" &&
+    grep -Eq '^[[:space:]]*Failed:[[:space:]]+0[[:space:]]*$' \
+        <<< "$CLEAN"
+}
+
+preflight() {
+    require_root
+
+    echo "== Configuration Integrity =="
+    /usr/bin/bash /usr/local/bin/omarchy-enterprise-guard check
+
+    echo
+    echo "== Enterprise Health =="
+
+    local REPORT
+    REPORT=$(/usr/local/bin/omarchy-enterprise-doctor)
+    printf '%s\n' "$REPORT"
+
+    if ! doctor_report_ok "$REPORT"; then
+        echo "Health checks require attention."
+        return 1
+    fi
+}
+
+echo "========================================"
+echo "     OMARCHY ENTERPRISE UPDATES"
+echo "              v0.1.1"
+echo "========================================"
+echo
+
+case "${1:-check}" in
+
+    check)
+        if [[ $EUID -eq 0 ]]; then
+            echo "Run update discovery as a regular user."
+            exit 1
+        fi
+
+        command -v checkupdates >/dev/null || {
+            echo "checkupdates is unavailable."
+            exit 1
+        }
+
+        TMP=$(mktemp -d)
+        trap 'rm -rf -- "$TMP"' EXIT
+
+        echo "Checking available updates..."
+        echo
+
+        RC=0
+
+        CHECKUPDATES_DB="$TMP/db" \
+            timeout 180 checkupdates > "$TMP/updates" || RC=$?
+
+        case "$RC" in
+            0)
+                ;;
+            2)
+                echo "No repository updates available."
+                exit 0
+                ;;
+            *)
+                echo "Update discovery failed: exit code $RC"
+                exit 1
+                ;;
+        esac
+
+        TOTAL=$(awk 'NF {n++} END {print n+0}' "$TMP/updates")
+
+        echo "== Available Updates =="
+        cat "$TMP/updates"
+
+        echo
+        echo "== Enterprise Components =="
+
+        grep -Ei \
+        '^(omarchy[^ ]*|linux[^ ]*|samba|smbclient|libwbclient|sssd[^ ]*|krb5|pam|openssh|openssl|systemd[^ ]*|docker[^ ]*|cups[^ ]*|polkit|sudo|cryptsetup|ufw|nftables|iptables|freerdp[^ ]*|sddm|hyprland)[[:space:]]' \
+        "$TMP/updates" || echo "None detected."
+
+        echo
+        echo "========================================"
+        echo "Available updates: $TOTAL"
+        echo "Security advisory status: NOT ASSESSED"
+        echo "No packages were installed."
+        ;;
+
+    preflight)
+        preflight
+        echo
+        echo "Pre-update checks passed."
+        ;;
+
+    snapshot)
+        preflight
+
+        echo
+        echo "Creating pre-update root snapshot..."
+
+        SNAPSHOT=$(snapper -c root create \
+            --description "Omarchy Enterprise - Pre-update" \
+            --cleanup-algorithm number \
+            --print-number)
+
+        echo "Snapshot created: $SNAPSHOT"
+        echo "No packages were installed."
+        ;;
+
+    postflight)
+        require_root
+        RESULT=0
+
+        echo "== Configuration Integrity =="
+
+        /usr/bin/bash \
+            /usr/local/bin/omarchy-enterprise-guard check \
+            || RESULT=1
+
+        echo
+        echo "== Enterprise Health =="
+
+        REPORT=$(/usr/local/bin/omarchy-enterprise-doctor) \
+            || RESULT=1
+
+        printf '%s\n' "$REPORT"
+
+        doctor_report_ok "$REPORT" || RESULT=1
+
+        echo
+        echo "== Configuration Files =="
+
+        find /etc -xdev -type f \
+            \( -name '*.pacnew' -o -name '*.pacsave' \) \
+            -print || RESULT=1
+
+        echo
+
+        if (( RESULT == 0 )); then
+            echo "Post-update checks passed."
+            echo "Review any pacnew or pacsave files listed above."
+        else
+            echo "Post-update checks require attention."
+        fi
+
+        exit "$RESULT"
+        ;;
+
+    config-review)
+        require_root
+
+        find /etc -xdev -type f \
+            \( -name '*.pacnew' -o -name '*.pacsave' \) \
+            -print
+        ;;
+
+    history)
+        require_root
+
+        echo "== Recent Package Changes =="
+
+        grep -E '\[ALPM\] (upgraded|installed|removed|downgraded) ' \
+            /var/log/pacman.log | tail -n 50 || true
+        ;;
+
+    *)
+        echo "Available commands:"
+        echo
+        echo "  check"
+        echo "  preflight"
+        echo "  snapshot"
+        echo "  postflight"
+        echo "  config-review"
+        echo "  history"
+        exit 1
+        ;;
+
+esac

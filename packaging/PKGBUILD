@@ -1,0 +1,92 @@
+pkgname=omarchy-enterprise
+pkgver=0.5.0lab15
+pkgrel=2
+pkgdesc='Workstation policy and administration tools for Omarchy Linux (public preview)'
+arch=('any')
+license=('MIT')
+depends=('bash' 'python')
+makedepends=('gettext')
+optdepends=('python-gobject: native Control Center and installer bindings'
+            'gtk4>=4.8: native graphical interface'
+            'libadwaita>=1.4: native adaptive interface'
+            'zenity: lightweight graphical fallback'
+            'bind: Active Directory DNS diagnostics'
+            'freerdp: Windows remote desktop'
+            'glib2: SMB resource launcher'
+            'gvfs-smb: SMB file manager integration'
+            'cups: printing'
+            'openssl: public certificate inspection'
+            'pacman-contrib: update checks'
+            'krb5: Kerberos tools and cache probe'
+            'samba: AD trust, Samba and Winbind checks'
+            'smbclient: Kerberos-only SMB connectivity test'
+            'sssd: enterprise identity checks'
+            'audit: audit status and queries'
+            'snapper: snapshots and update recovery'
+            'sudo: explicitly authorized administrative console actions'
+            'gum: reference terminal console'
+            'ncurses: terminal console screen handling'
+            'p11-kit: system certificate trust extraction'
+            'net-snmp: printer monitoring'
+            'avahi: printer discovery'
+            'system-config-printer: graphical print administration'
+            'cups-filters: additional CUPS filters'
+            'ufw: reference compliance firewall reporting'
+            'openssh: SSH compliance checks'
+            'iproute2: network inventory and compliance'
+            'nautilus: reference desktop file manager check'
+            'libsecret: desktop credential backend check'
+            'cifs-utils: CIFS capability check'
+            'docker: reference Windows runtime checks and selected-container policy review'
+            'polkit: enterprise authorization checks'
+            'sddm: graphical display manager checks'
+            'dmidecode: hardware inventory'
+            'pciutils: PCI hardware inventory'
+            'usbutils: USB hardware inventory'
+            'procps-ng: memory and process inventory'
+            'util-linux: storage and login diagnostics'
+            'btrfs-progs: filesystem diagnostics')
+
+check() {
+    cd "$startdir/.."
+    python -m unittest discover -s tests -v
+}
+
+package() {
+    cd "$startdir/.."
+    install -Dm755 bin/omarchy-enterprise "$pkgdir/usr/bin/omarchy-enterprise"
+    install -Dm755 bin/omarchy-enterprise-admin "$pkgdir/usr/bin/omarchy-enterprise-admin"
+    for module in oe/*.py oe/control_center/*.py; do
+        install -Dm644 "$module" "$pkgdir/usr/lib/omarchy-enterprise/$module"
+    done
+    install -d "$pkgdir/usr/share/locale/it/LC_MESSAGES"
+    msgfmt --check -o "$pkgdir/usr/share/locale/it/LC_MESSAGES/omarchy-enterprise.mo" \
+        locale/it/LC_MESSAGES/omarchy-enterprise.po
+    install -Dm644 templates/omarchy-enterprise.audit.rules \
+        "$pkgdir/usr/share/$pkgname/omarchy-enterprise.audit.rules.example"
+    for asset in oe/assets/*; do
+        install -Dm644 "$asset" "$pkgdir/usr/lib/omarchy-enterprise/$asset"
+    done
+    python packaging/build-reference.py reference-import "$pkgdir/usr/bin"
+    install -Dm644 templates/reference-provision.json "$pkgdir/usr/share/$pkgname/provision.example.json"
+    install -Dm644 templates/reference-printer-host "$pkgdir/usr/share/$pkgname/printer-monitor-host.example"
+    install -Dm644 templates/reference-policy.json "$pkgdir/usr/share/$pkgname/reference-policy.example.json"
+    install -Dm644 templates/90-omarchy-enterprise-guard.hook.example \
+        "$pkgdir/usr/share/$pkgname/examples/90-omarchy-enterprise-guard.hook.example"
+    install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+    install -Dm644 LICENSE.0BSD "$pkgdir/usr/share/licenses/$pkgname/LICENSE.0BSD"
+    install -Dm644 THIRD_PARTY_NOTICES.md "$pkgdir/usr/share/licenses/$pkgname/THIRD_PARTY_NOTICES.md"
+    install -Dm644 templates/smb-policy.json "$pkgdir/usr/share/$pkgname/smb-policy.example.json"
+    install -Dm644 templates/file-servers.example.json "$pkgdir/usr/share/$pkgname/file-servers.example.json"
+    if [[ -f templates/printers.example.json ]]; then
+        install -Dm644 templates/printers.example.json "$pkgdir/usr/share/$pkgname/printers.example.json"
+    fi
+    install -Dm644 templates/omarchy-enterprise-login.desktop "$pkgdir/usr/share/$pkgname/examples/omarchy-enterprise-login.desktop"
+    install -Dm644 templates/remote-desktop.example.json "$pkgdir/usr/share/$pkgname/remote-desktop.example.json"
+    install -Dm644 templates/omarchy-enterprise.desktop \
+        "$pkgdir/usr/share/applications/omarchy-enterprise.desktop"
+    install -Dm644 templates/omarchy-enterprise-installer.desktop \
+        "$pkgdir/usr/share/applications/omarchy-enterprise-installer.desktop"
+    install -Dm644 templates/omarchy-enterprise-policy.desktop \
+        "$pkgdir/usr/share/$pkgname/examples/omarchy-enterprise-policy.desktop"
+}

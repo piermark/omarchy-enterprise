@@ -1,0 +1,363 @@
+#!/usr/bin/python3
+
+import os
+import sys
+import pwd
+import grp
+import re
+import json
+import tempfile
+import subprocess
+from pathlib import Path
+
+os.umask(0o077)
+
+if os.geteuid() == 0:
+    sys.exit("Run as the user being configured, not root.")
+
+config = json.loads(
+    Path("/etc/omarchy-enterprise/provision.json").read_text()
+)
+
+account = pwd.getpwuid(os.getuid())
+username = account.pw_name
+home = Path(account.pw_dir)
+
+domain = config["domain"].lower()
+is_domain_user = username.lower().endswith("@" + domain)
+
+def is_admin():
+    if not is_domain_user:
+        return False
+
+    try:
+        gid = grp.getgrnam(config["admin_group"]).gr_gid
+        return gid in set(os.getgroups()) | {os.getgid()}
+    except KeyError:
+        return False
+
+if "--is-admin" in sys.argv:
+    sys.exit(0 if is_admin() else 1)
+
+if not is_domain_user:
+    sys.exit(0)
+
+menu = home / ".config/omarchy/extensions/omarchy-menu.jsonc"
+menu.parent.mkdir(parents=True, exist_ok=True)
+
+admin_condition = (
+    "/usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+)
+
+entries = {
+    "enterprise": {
+        "icon": "󰒃",
+        "label": "Enterprise",
+        "description": "Enterprise workstation management"
+    },
+    "enterprise.doctor": {
+        "icon": "󰓙",
+        "label": "System Health",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view doctor",
+        "when": admin_condition
+    },
+    "enterprise.identity": {
+        "icon": "󰀂",
+        "label": "Active Directory",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view identity",
+        "when": admin_condition
+    },
+    "enterprise.kerberos": {
+        "icon": "󰌆",
+        "label": "Kerberos & SSO",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view kerberos"
+    },
+    "enterprise.windows": {
+        "icon": "󰍲",
+        "label": "Windows VM",
+        "action": "gtk-launch windows-vm.desktop",
+        "when": admin_condition
+    },
+    "enterprise.network": {
+        "icon": "󰉒",
+        "label": "Network Drives",
+        "action": "uwsm-app -- nautilus network:///"
+    },
+    "enterprise.security": {
+        "icon": "󰒃",
+        "label": "Security Status",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view security"
+    },
+    "enterprise.snapshots": {
+        "icon": "󰁯",
+        "label": "System Snapshots",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view snapshots",
+        "when": admin_condition
+    },
+    "enterprise.guard": {
+        "icon": "󰒃",
+        "label": "Update Protection",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view guard",
+        "when": admin_condition
+    },
+    "enterprise.certificates": {
+        "icon": "󰄤",
+        "label": "Certificate Management",
+        "description": "Enterprise trusted certificates",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view certificates"
+    },
+    "enterprise.printers": {
+        "icon": "󰐪",
+        "label": "Printer Management",
+        "description": "Manage installed and network printers",
+        "action": "uwsm app -- /usr/local/bin/omarchy-enterprise-printers gui"
+    },
+    "enterprise.printstatus": {
+        "icon": "󰓙",
+        "label": "Print Service Status",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view printers"
+    },
+    "enterprise.printjobs": {
+        "icon": "󰒍",
+        "label": "Print Jobs",
+        "description": "View your current print jobs",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view printjobs"
+    },
+    "enterprise.printoptions": {
+        "icon": "󰒓",
+        "label": "Printer Options",
+        "description": "View printer capabilities",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view printoptions"
+    },
+    "enterprise.printermonitor": {
+        "icon": "󰄨",
+        "label": "Printer Monitor",
+        "description": "SNMP toner levels, status and counters",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view printermonitor"
+    },
+    "enterprise.inventory": {
+        "icon": "󰍛",
+        "label": "Hardware Inventory",
+        "description": "Hardware, storage and enterprise services",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view inventory",
+        "when": "/usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.inventorysoftware": {
+        "icon": "󰏖",
+        "label": "Software Inventory",
+        "description": "Installed packages and versions",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view inventorysoftware",
+        "when": "/usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.inventorynetwork": {
+        "icon": "󰀂",
+        "label": "Network Inventory",
+        "description": "Network interfaces and IP addresses",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view inventorynetwork",
+        "when": "/usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.inventoryexport": {
+        "icon": "󰈙",
+        "label": "Export Inventory JSON",
+        "description": "Export protected system inventory",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view inventoryexport",
+        "when": "/usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.compliance": {
+        "icon": "󰒃",
+        "label": "Security Compliance",
+        "description": "Enterprise workstation security assessment",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view compliance",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.complianceexport": {
+        "icon": "󰈙",
+        "label": "Export Security Report",
+        "description": "Export protected security assessment JSON",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view complianceexport",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.auditstatus": {
+        "icon": "󰒃",
+        "label": "Audit Service Status",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view auditstatus",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.auditrules": {
+        "icon": "󰋽",
+        "label": "Audit Rules",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view auditrules",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.auditidentity": {
+        "icon": "󰀄",
+        "label": "Identity Changes",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view auditidentity",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.auditconfig": {
+        "icon": "󰒓",
+        "label": "Configuration Changes",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view auditconfig",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.auditauth": {
+        "icon": "󰌆",
+        "label": "Authentication Events",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view auditauth",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.auditfailures": {
+        "icon": "󰀦",
+        "label": "Failed Logins",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view auditfailures",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.auditsummary": {
+        "icon": "󰄨",
+        "label": "Audit Summary",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view auditsummary",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.updates": {
+        "icon": "󰚰",
+        "label": "Available Updates",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view updates",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.updatepreflight": {
+        "icon": "󰒃",
+        "label": "Pre-update Assessment",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view updatepreflight",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.updatepostflight": {
+        "icon": "󰓙",
+        "label": "Post-update Assessment",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view updatepostflight",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.updatesnapshot": {
+        "icon": "󰁯",
+        "label": "Create Recovery Snapshot",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view updatesnapshot",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.updateconfigs": {
+        "icon": "󰈙",
+        "label": "Configuration Review",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view updateconfigs",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.updatehistory": {
+        "icon": "󰋚",
+        "label": "Update History",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view updatehistory",
+        "when": "/usr/bin/python3 /usr/local/bin/omarchy-enterprise-provision-user --is-admin"
+    },
+    "enterprise.policy": {
+        "icon": "󰒓",
+        "label": "Assigned Policies",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view policy"
+    },
+    "enterprise.policyrefresh": {
+        "icon": "󰑐",
+        "label": "Refresh Enterprise Policies",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view policyrefresh"
+    },
+    "enterprise.policyvalidate": {
+        "icon": "󰒃",
+        "label": "Validate Policy Configuration",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view policyvalidate"
+    },
+    "enterprise.backup": {
+        "icon": "󰁯",
+        "label": "Configuration Backups",
+        "action": "omarchy-launch-tui /usr/local/bin/omarchy-enterprise-view backup",
+        "when": admin_condition
+    }
+}
+
+# Parse JSONC without removing comments from the original file.
+source = menu.read_text() if menu.exists() else "{}\n"
+
+pattern = re.compile(
+    r'"(?:\\.|[^"\\])*"|//[^\r\n]*|/\*[\s\S]*?\*/'
+    r'|\s+|[{}\[\],:]|[^{}\[\],:\s"/]+|.'
+)
+
+tokens = [
+    m for m in pattern.finditer(source)
+    if not m.group().isspace()
+    and not m.group().startswith(("//", "/*"))
+]
+
+clean = " ".join(
+    token.group()
+    for i, token in enumerate(tokens)
+    if not (
+        token.group() == ","
+        and i + 1 < len(tokens)
+        and tokens[i + 1].group() in ("}", "]")
+    )
+)
+
+current = json.loads(clean)
+
+if not isinstance(current, dict):
+    sys.exit("Invalid Omarchy menu configuration.")
+
+# Preserve existing entries and user customizations.
+missing = {
+    key: value for key, value in entries.items()
+    if key not in current
+}
+
+if missing:
+    backup = menu.with_name(menu.name + ".pre-enterprise")
+
+    if menu.exists() and not backup.exists():
+        with backup.open("x") as handle:
+            handle.write(source)
+
+    position = tokens[-1].start()
+
+    prefix = (
+        "" if tokens[-2].group() in ("{", ",")
+        else ","
+    )
+
+    additions = json.dumps(
+        missing, indent=2, ensure_ascii=False
+    )[1:-1].strip("\n")
+
+    updated = (
+        source[:position]
+        + prefix + "\n"
+        + additions + "\n"
+        + source[position:]
+    )
+
+    with tempfile.NamedTemporaryFile(
+        mode="w",
+        dir=menu.parent,
+        delete=False
+    ) as handle:
+        handle.write(updated)
+        temporary = handle.name
+
+    os.replace(temporary, menu)
+
+    print("Enterprise menu provisioned successfully.")
+else:
+    print("Enterprise menu already configured.")
+
+if "--no-refresh" not in sys.argv:
+    try:
+        subprocess.run(
+            ["/usr/bin/omarchy-menu", "refresh"],
+            timeout=10,
+            check=False
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        print("Menu refresh unavailable; configuration saved.")

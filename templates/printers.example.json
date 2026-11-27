@@ -1,0 +1,7 @@
+{
+  "printers": [
+    {"name": "oe-office", "uri": "ipps://print.example.com/ipp/office"},
+    {"name": "oe-lab", "uri": "ipps://print.example.com/ipp/lab"}
+  ],
+  "default": "oe-office"
+}

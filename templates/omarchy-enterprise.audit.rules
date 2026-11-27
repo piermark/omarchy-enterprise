@@ -1,0 +1,2 @@
+## Install only after the enterprise configuration directory exists.
+-w /etc/omarchy-enterprise/ -p wa -k omarchy_enterprise_config

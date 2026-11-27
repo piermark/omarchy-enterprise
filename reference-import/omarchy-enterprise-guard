@@ -1,0 +1,142 @@
+
+#!/bin/bash
+
+set -euo pipefail
+umask 077
+
+BASE="/var/lib/omarchy-enterprise/backups"
+
+FILES=(
+    /etc/sssd/sssd.conf
+    /etc/samba/smb.conf
+    /etc/krb5.conf
+    /etc/nsswitch.conf
+    /etc/pam.d/system-auth
+    /etc/pam.d/system-login
+    /etc/pam.d/system-auth-ad
+    /etc/pam.d/system-login-ad
+    /etc/pam.d/sddm
+    /etc/pam.d/sudo
+    /etc/pam.d/polkit-1
+    /etc/pam.d/omarchy-lock-password
+    /etc/sddm.conf.d/zz-enterprise.conf
+    /etc/sddm/greeter-hyprland.lua
+    /etc/sudoers.d/90-active-directory
+    /etc/polkit-1/rules.d/10-active-directory.rules
+    /usr/share/sddm/themes/omarchy-enterprise/Main.qml
+    /usr/share/applications/windows-vm.desktop
+    /etc/omarchy-enterprise/windows/krb5-local.conf
+    /usr/local/bin/omarchy-enterprise-windows
+    /usr/local/bin/omarchy-enterprise-doctor
+    /usr/local/bin/omarchy-enterprise-view
+    /usr/local/bin/omarchy-enterprise-guard
+    /etc/xdg/autostart/omarchy-enterprise-policy.desktop
+    /etc/omarchy-enterprise/policy.json
+    /usr/local/bin/omarchy-enterprise-policy
+    /usr/local/bin/omarchy-enterprise-updates
+    /etc/audit/auditd.conf
+    /etc/audit/rules.d/50-omarchy-enterprise.rules
+    /etc/omarchy-enterprise/audit.rules
+    /usr/local/bin/omarchy-enterprise-audit
+    /usr/local/bin/omarchy-enterprise-compliance
+    /usr/local/bin/omarchy-enterprise-inventory
+    /usr/local/bin/omarchy-enterprise-ad-testjoin
+    /etc/omarchy-enterprise/printer-monitor-host
+    /usr/local/bin/omarchy-enterprise-printer-monitor
+    /usr/local/bin/omarchy-enterprise-printers
+    /usr/local/bin/omarchy-enterprise-certificates
+    /usr/local/bin/omarchy-enterprise-provision-user
+    /etc/omarchy-enterprise/provision.json
+    /etc/xdg/autostart/omarchy-enterprise-provision.desktop
+)
+
+if [[ $EUID -ne 0 ]]; then
+    echo "Please run with sudo."
+    exit 1
+fi
+
+install -d -o root -g root -m 700 "$BASE"
+
+echo "========================================"
+echo "      OMARCHY ENTERPRISE GUARD"
+echo "              v0.1.0"
+echo "========================================"
+
+case "${1:-check}" in
+
+    backup)
+        DEST=$(mktemp -d \
+            "$BASE/backup-$(date +%Y%m%d-%H%M%S)-XXXXXX")
+
+        COUNT=0
+
+        for FILE in "${FILES[@]}"; do
+            if [[ -f "$FILE" && ! -L "$FILE" ]]; then
+                cp -a --parents -- "$FILE" "$DEST"
+                echo "[BACKUP] $FILE"
+                ((COUNT+=1))
+            else
+                echo "[SKIP] $FILE"
+            fi
+        done
+
+        ln -sfn "$(basename "$DEST")" "$BASE/latest"
+
+        echo
+        echo "Files backed up: $COUNT"
+        echo "Backup location: $DEST"
+        echo "Integrity baseline updated."
+        ;;
+
+    check)
+        if [[ ! -d "$BASE/latest" ]]; then
+            echo "No baseline found. Run backup first."
+            exit 1
+        fi
+
+        OK=0
+        CHANGED=0
+        SKIPPED=0
+
+        for FILE in "${FILES[@]}"; do
+            SAVED="$BASE/latest$FILE"
+
+            if [[ ! -e "$SAVED" && ! -e "$FILE" && ! -L "$FILE" ]]; then
+                echo "[SKIP] $FILE"
+                ((SKIPPED+=1))
+
+            elif [[ -f "$SAVED" && -f "$FILE" && ! -L "$FILE" ]] &&
+                 cmp -s -- "$SAVED" "$FILE" &&
+                 [[ "$(stat -c '%a:%u:%g' "$SAVED")" == \
+                    "$(stat -c '%a:%u:%g' "$FILE")" ]]; then
+
+                echo "[OK] $FILE"
+                ((OK+=1))
+            else
+                echo "[CHANGED] $FILE"
+                ((CHANGED+=1))
+            fi
+        done
+
+        echo
+        echo "Unchanged: $OK"
+        echo "Changed:   $CHANGED"
+        echo "Skipped:   $SKIPPED"
+
+        if (( CHANGED == 0 )); then
+            echo "Enterprise integrity check passed."
+        else
+            echo "WARNING: Review configuration changes."
+            exit 1
+        fi
+        ;;
+
+    list)
+        ls -ld "$BASE"/backup-* "$BASE/latest" 2>/dev/null || true
+        ;;
+
+    *)
+        echo "Usage: omarchy-enterprise-guard {backup|check|list}"
+        exit 1
+        ;;
+esac
