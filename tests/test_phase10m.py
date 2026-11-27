@@ -98,6 +98,16 @@ class Phase10M(unittest.TestCase):
         with patch("os.access", return_value=True):
             self.assertEqual(model.admin("omarchy-enterprise-guard").code, "ACCESS RESTRICTED")
 
+    def test_windows_page_reports_missing_freerdp_as_unavailable(self):
+        runtime = diagnostics.windows_runtime(root=self.root)
+        with patch.object(diagnostics, "services", return_value={}), patch.object(
+                diagnostics, "windows_runtime", return_value=runtime), patch(
+                "oe.windows.shutil.which", return_value=None) as which:
+            rows = dict(self.backend.windows(Event()).rows)
+        self.assertTrue(which.called)
+        self.assertEqual(rows["FreeRDP client"].code, "UNAVAILABLE")
+        self.assertEqual(rows["Managed launch"].code, "BLOCKED")
+
     def test_restricted_resources_and_open_rechecks_policy(self):
         with patch.object(pilot_session, "active_resources", side_effect=PermissionError):
             result, resources = self.backend.resources()

@@ -11,6 +11,8 @@ production-ready; see the [availability matrix](docs/availability.md).
 - Optional Windows workspace planning with manual startup.
 - Signed-package bootstrap verification code, pending clean Omarchy acceptance.
 - Uniform MIT licensing with SPDX identifiers for original sources.
+- Control Center: the Windows page reports the FreeRDP client as UNAVAILABLE
+  when FreeRDP is not installed instead of failing.
 - Inbound RDP remains unavailable. See the [roadmap](ROADMAP.md).
 
 The Arch package version is `0.5.0-1`. It upgrades earlier laboratory builds

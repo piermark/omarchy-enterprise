@@ -147,6 +147,13 @@ def private_profile(store):
         return state("BLOCKED")
 
 
+def freerdp_available():
+    try:
+        return bool(windows.client())
+    except ValueError:
+        return False
+
+
 class Backend:
     def __init__(self, store, source):
         self.store, self.source = store, source
@@ -250,7 +257,7 @@ class Backend:
             (_("Effective restart policy"), state(runtime["restart_policy"])),
             (_("Storage readiness"), state(runtime["storage"])),
             (_("Managed launch"), state("BLOCKED")),
-            (_("FreeRDP client"), state("AVAILABLE" if windows.client() else "UNAVAILABLE")),
+            (_("FreeRDP client"), state("AVAILABLE" if freerdp_available() else "UNAVAILABLE")),
         ), runtime)
 
     def remote(self, token):

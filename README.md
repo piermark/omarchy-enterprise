@@ -17,7 +17,7 @@ A separate administrative CLI reviews plans and applies scoped changes only with
 explicit approval.
 
 > [!WARNING]
-> **Early release, not production-ready.** The 162 retained offline regression
+> **Early release, not production-ready.** The 163 retained offline regression
 > tests pass for this source. Clean Omarchy installation, native desktop launch and
 > live integrations (AD, PAM, SDDM, SMB, CUPS, Windows guest) still require
 > qualification. Evaluate on disposable systems and keep independent local
@@ -207,7 +207,7 @@ regular user:
 tar -xzf omarchy-enterprise-0.5.0-source.tar.gz
 cd omarchy-enterprise
 sha256sum -c SOURCE-SHA256SUMS
-cd packaging && makepkg --syncdeps      # runs the 162 tests in check()
+cd packaging && makepkg --syncdeps      # runs the 163 tests in check()
 sudo pacman -U omarchy-enterprise-0.5.0-1-any.pkg.tar.zst
 ```
 
