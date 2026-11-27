@@ -1,7 +1,7 @@
 # Control Center
 
-The native desktop interface uses GTK4, Libadwaita and PyGObject. On a separately
-qualified installation, open **Omarchy Enterprise** from the desktop menu
+The native desktop interface uses GTK4, Libadwaita and PyGObject. On an installed
+workstation, open **Omarchy Enterprise** from the desktop menu
 or use `omarchy-enterprise desktop` as a regular user.
 
 Start with the overview to identify which configuration needs attention.
@@ -13,4 +13,4 @@ Keep private handoffs out of source trees and issue reports.
 The installer has a separate desktop entry. Start with Standalone, review
 its proposed files and use a private target directory for source evaluation.
 Consult [installation](installation.md) for prerequisites and
-[availability](availability.md) for qualification boundaries.
+[availability](availability.md) for the tested scope.

@@ -13,7 +13,9 @@ generated Samba, SSSD and Kerberos settings with the intended design.
   credentials. A ticket by itself does not establish that an SMB client uses it.
 
 Review SDDM separately. Keep domain login disabled during source evaluation
-and retain a working local administrator login. Enrollment, live identity
-resolution, PAM and graphical login require separate qualification. Review
+and retain a working local administrator login. Enrollment, machine trust,
+identity resolution, PAM, Kerberos tickets and graphical login were exercised
+on the reference workstation against a real AD domain; repeat them on a
+disposable workstation before production use. Review
 [administration](administration.md#active-directory-sssd-and-graphical-login)
 for diagnostics and ownership checks.

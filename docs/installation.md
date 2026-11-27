@@ -1,8 +1,11 @@
 # Installation and evaluation
 
-Clean installation acceptance is pending. The target for qualification is a
-clean, disposable x86_64 workstation running Omarchy 4.5 (4.5 or 4.5.0),
-which is based on Arch Linux. Keep independent local administrator and recovery access.
+The supported target is an x86_64 workstation running Omarchy 4.5 (4.5 or
+4.5.0), which is based on Arch Linux. The features were exercised on a real
+reference Omarchy workstation during development, and the signed package was
+installed from the signed pacman repository in a clean Arch environment.
+Acceptance on a clean Omarchy installation is still pending, so evaluate on a
+disposable workstation first. Keep independent local administrator and recovery access.
 Start with the Standalone profile before evaluating directory integration.
 
 ## Offline evaluation from source
@@ -36,15 +39,14 @@ Server = https://piermark.github.io/omarchy-enterprise/$arch
 ```
 
 to `/etc/pacman.conf`, then run `sudo pacman -Syu omarchy-enterprise`. Updates
-arrive with `sudo pacman -Syu`. The same qualification limits apply; evaluate
-on a disposable system first.
+arrive with `sudo pacman -Syu`. The [availability matrix](availability.md)
+lists the acceptance still pending; evaluate on a disposable system first.
 
-## Signed-package qualification
+## Manually verified package installation
 
 The Arch package `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` (Pacman version
-`0.5.0-1`) requires maintainer signing and clean Omarchy acceptance before
-distribution. Follow these steps
-when an approved signed package and verification key are available.
+`0.5.0-1`) is signed with the release key and served by the signed pacman
+repository. To verify and install the package file by hand, follow these steps.
 
 1. Use a regular desktop session for the graphical workflow. The native
    interface needs PyGObject, GTK 4.8 or later and Libadwaita 1.4 or later.
@@ -64,7 +66,7 @@ when an approved signed package and verification key are available.
    authorized installation, use an administrator-controlled package and
    signature location, recheck the digest and signing identity, and
    require a trusted signature through Pacman's `LocalFileSigLevel`.
-4. Qualify the desktop launch as the regular desktop user. Use
+4. Check the desktop launch as the regular desktop user. Use
    `./install.sh --bootstrap --launch` with the matching installed
    Omarchy Enterprise package or open **Omarchy Enterprise Installer**. Stage the
    Standalone profile and review it before separately approving a policy
@@ -74,7 +76,7 @@ Before attempting upgrades, inspect package ownership and pending recovery
 state. Keep an independently recoverable backup and the trusted previous
 package. If Pacman is interrupted, review its transaction and package database
 before retrying. Consult the [availability matrix](availability.md) for the
-live checks still required.
+acceptance still required.
 
 ## Filesystems and recovery
 
@@ -82,5 +84,4 @@ Consider Btrfs for local snapshots and rollback. Before changing a workstation,
 confirm which subvolumes the snapshot covers, test restoration and keep an
 independent backup. Include home data and any separately mounted volumes in
 the backup plan. Back up Windows guest disks separately and review threaded I/O
-with writeback for a dedicated Btrfs guest storage path during guest
-qualification.
+with writeback for a dedicated Btrfs guest storage path.

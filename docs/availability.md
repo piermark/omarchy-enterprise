@@ -1,25 +1,35 @@
 # Feature availability
 
+Omarchy Enterprise was developed on a real, physical Omarchy workstation (the
+*reference workstation*) joined to a real Active Directory domain, not only
+with offline tests or simulated environments. This matrix separates what was
+exercised there during development from what still needs acceptance for the
+released `0.5.0-1` package.
+
 | Status | Meaning |
 | --- | --- |
-| `IMPLEMENTED` | An implementation is present. |
-| `REFERENCE_HOST_TESTED` | Prior reference-host evidence covers the indicated scope. |
-| `OFFLINE_TESTED` | Retained offline regression tests cover the indicated scope with fixtures or adapters. |
-| `PENDING_QUALIFICATION` | A live or release acceptance check is outstanding. |
-| `ROADMAP` | Future work. |
+| `IMPLEMENTED` | The feature is present in 0.5.0. |
+| `OFFLINE_TESTED` | The 163 retained regression tests cover the stated scope with fixtures and adapters. |
+| `REFERENCE_HOST_TESTED` | Functionally exercised on the reference workstation during development, within the stated scope. |
+| `PENDING_RELEASE_ACCEPTANCE` | Still to be accepted for the released package, for example on a clean Omarchy installation, or only partially exercised so far. |
+| `ROADMAP` | Future work; not available in 0.5.0. |
 
-| Workflow | Evidence | Remaining qualification |
-| --- | --- | --- |
-| Standalone staging, package verification | `IMPLEMENTED`, `OFFLINE_TESTED` for staging; signed package installed from the signed pacman repository in a clean Arch environment | `PENDING_QUALIFICATION` clean Omarchy acceptance |
-| GTK4 Control Center | `IMPLEMENTED`, `OFFLINE_TESTED` for UI models | `PENDING_QUALIFICATION` native launch on clean Omarchy |
-| Active Directory, SSSD and Kerberos | `IMPLEMENTED`, `OFFLINE_TESTED` for review and diagnostics | `PENDING_QUALIFICATION` live enrollment, trust, tickets and identity resolution |
-| Graphical domain login | `IMPLEMENTED`, `OFFLINE_TESTED` for review and opt-in staging | `PENDING_QUALIFICATION` PAM, SDDM and post-upgrade login |
-| File servers | `IMPLEMENTED`, `OFFLINE_TESTED` for policy, managed bookmarks and recovery | `PENDING_QUALIFICATION` live GVFS/Kerberos and login-time sync |
-| Printers | `IMPLEMENTED`, `OFFLINE_TESTED` for CUPS discovery adapters and queue plans | `PENDING_QUALIFICATION` live changes and recovery |
-| Enterprise Guard and rollback | `IMPLEMENTED`, `REFERENCE_HOST_TESTED` for earlier Guard and hook checks, `OFFLINE_TESTED` for policy and recovery | `PENDING_QUALIFICATION` clean install and site-specific hook review |
-| Optional Windows workspace | `IMPLEMENTED`, `OFFLINE_TESTED` for planning and adapter behavior | `PENDING_QUALIFICATION` licensed media, lifecycle and isolation |
-| Inbound RDP to Omarchy, OCS Inventory, Zabbix | `ROADMAP` | See the [roadmap](../ROADMAP.md). |
+| Workflow | Status | Scope already tested | Remaining acceptance (`PENDING_RELEASE_ACCEPTANCE`) |
+| --- | --- | --- | --- |
+| Standalone deployment, rollback and packaging | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` | Reference workstation: Standalone deployment and rollback, package upgrades. Clean Arch environment: the signed `0.5.0-1` package installed from the signed pacman repository with database and package signatures verified, 0 altered files, clean removal. Offline: staging, dry run and package verification. | Full installation on a clean Omarchy 4.5 workstation. |
+| GTK4 Control Center | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` | Reference workstation: native GTK4/Libadwaita launch and navigation. Offline: UI models and translations. | Launch from the released package on a clean Omarchy installation. |
+| Active Directory, Samba, SSSD and Kerberos | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` | Reference workstation: domain enrollment with Samba ADS, machine trust and Winbind verification, SSSD configuration with NSS and PAM integration, Kerberos authentication and ticket acquisition. Offline: configuration review and diagnostics. | Repeat enrollment with the released package on a clean Omarchy installation. |
+| Graphical login and multi-user | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` | Reference workstation: SDDM graphical login with domain and local accounts, domain home directory provisioning, administrative permissions and multi-user integration. Offline: review and opt-in staging. | Clean-install integration, including login after a system upgrade. |
+| File servers (SMB, Nautilus/GVFS) | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` (partial) | Reference workstation: SMB file server access and Nautilus/GVFS integration exercised during development. Offline: policy, managed bookmarks and recovery. | Live Kerberos SMB authentication through GVFS and login-time bookmark sync. |
+| Printers (CUPS) | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` (partial) | Reference workstation: CUPS printer discovery and queue inspection. Offline: discovery adapters and IPP/IPPS queue plans. | Queue mutations (creation, endpoint updates, undo) and their recovery. |
+| Enterprise Guard, backup and recovery | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` | Reference workstation: Guard baseline checks and its Pacman hook, configuration backup and recovery. Offline: policy and scoped recovery. | Clean-install acceptance and site-specific hook review. |
+| Optional Windows workspace | `IMPLEMENTED`, `OFFLINE_TESTED`, `REFERENCE_HOST_TESTED` | Reference workstation: Windows virtual machines with Dockur, Docker and QEMU, VM storage configuration and the manual startup policy. Offline: planning and adapter behavior. | Loopback FreeRDP connection path and network isolation of the guest on a clean installation; licensed media remain the user's responsibility. |
+| Inbound RDP to Omarchy, independent remote desktop sessions, OCS Inventory, Zabbix | `ROADMAP` | None. | See the [roadmap](../ROADMAP.md). |
 
-Use disposable workstations and synthetic settings for qualification. Apart
-from the signed package install test, this release includes no live
-qualification.
+Results marked `REFERENCE_HOST_TESTED` come from development builds on the
+reference workstation. The remaining clean Omarchy installation acceptance
+repeats them with the released package; it does not invalidate them. Rows
+marked *partial* were exercised but are not fully qualified. No organization,
+domain, account or network details of the reference environment are published.
+Evaluate on a disposable workstation, with a local administrator account and a
+tested backup, before production use.

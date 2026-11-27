@@ -7,7 +7,7 @@ Nautilus bookmarks in File Servers. Review the policy and keep your personal
 bookmarks before confirming synchronization as the desktop user.
 
 Verify the actual SMB authentication mechanism with the desktop backend.
-A valid Kerberos ticket and correctly configured GVFS SMB support are part
-of live qualification. Use Recover or Restore for interrupted or unwanted
+A valid Kerberos ticket and correctly configured GVFS SMB support are required;
+live Kerberos SMB acceptance is still pending. Use Recover or Restore for interrupted or unwanted
 managed changes, then accept a verified checkpoint before a new sync.
 See [managed bookmark administration](administration.md#file-servers-and-nautilus).

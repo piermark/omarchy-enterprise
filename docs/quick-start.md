@@ -16,5 +16,5 @@ the same private directory, replace `--dry-run` with `--yes`. Review removal
 with `./uninstall.sh --root "$stage"`.
 
 Continue with [installation and verification](installation.md). The
-[availability matrix](availability.md) shows which workflows need live
-qualification.
+[availability matrix](availability.md) shows what was tested on the reference
+workstation and what still needs release acceptance.

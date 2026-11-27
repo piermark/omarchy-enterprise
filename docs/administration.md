@@ -33,7 +33,8 @@ Existing system identity markers require a native trust check and review
 before any enrollment. Isolated lab enrollment is described by
 `omarchy-enterprise` lab command help. Preserve the enrollment gate and
 reconcile ambiguous local and directory state with the directory administrator
-before retrying. System enrollment and interactive login are unqualified.
+before retrying. Enrollment and interactive login were exercised on the reference
+workstation; clean-install acceptance is pending (see [availability](availability.md)).
 
 Samba maintains machine trust, SSSD resolves directory users and groups and
 integrates with PAM, and Kerberos provides tickets for compatible services.
@@ -53,7 +54,8 @@ edit and redeploy the policy then review synchronization, preserving the
 existing ordinary personal entries. After verifying a completed sync, use Accept managed
 bookmarks to archive its checkpoint and permit the next policy sync. Kerberos service
 access depends on the desktop SMB backend. Qualify the actual authentication
-mechanism independently. Login integration remains opt-in and unqualified.
+mechanism independently. Login integration remains opt-in; live Kerberos SMB
+acceptance is pending.
 
 ## Printing
 

@@ -170,7 +170,7 @@ Download from **[Releases](https://github.com/piermark/omarchy-enterprise/releas
 | `Omarchy-Enterprise-User-Guide.pdf` | Illustrated user guide (9 pages, English) |
 | `SHA256SUMS` / `SHA256SUMS.asc` | Checksums and their detached OpenPGP signature |
 | `omarchy-enterprise-signing-key.asc` / `release-keyring.gpg` | Public release signing key (armored / binary keyring for `gpgv`) |
-| `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` (+ `.sig`) | Prebuilt package, **published after signing and clean Omarchy acceptance** |
+| `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` (+ `.sig`) | Signed prebuilt package, served by the [signed pacman repository](#install) |
 
 Release signing key: **Marco Porro (Omarchy Enterprise) &lt;piermark@gmail.com&gt;**, Ed25519,
 fingerprint **`CDBB 05E0 13F4 F1E8 BBE8  F000 6E3D 9649 B45A DEC7`** (`CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`). Confirm it through an independent channel (for
@@ -186,7 +186,7 @@ sha256sum -c --ignore-missing SHA256SUMS                  # every downloaded fil
 
 ## Install the prebuilt package
 
-> The signed package is attached to the release after clean Omarchy acceptance.
+> The signed package is available from the [signed pacman repository](https://piermark.github.io/omarchy-enterprise/x86_64/).
 > Requires x86_64 Omarchy 4.5 (4.5 or 4.5.0). Keep Pacman signature verification enabled.
 
 1. Download `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst`, its `.sig`, `SHA256SUMS`,
@@ -249,18 +249,20 @@ Gettext's `msgfmt` (`python -B -m unittest discover -s tests -v`). Replace
 
 | Capability | 0.5.0 scope |
 | --- | --- |
-| Standalone | Offline profile staging, review and recovery |
-| Control Center | Native GTK4 interface with English and Italian translations and offline UI model checks |
-| Active Directory | Samba ADS, SSSD and Kerberos configuration review and diagnostics |
-| Graphical domain login | SDDM review and opt-in integration. Live PAM and SDDM acceptance pending |
-| File servers | Managed Nautilus bookmarks and offline recovery. Live SMB authentication pending |
-| Printers | CUPS discovery and IPP/IPPS queue plans. Live queue changes pending |
-| Enterprise Guard | Baseline checks and scoped recovery with prior reference-host Guard and hook evidence |
-| Windows workspace | Optional guest planning with manual startup by default. Live isolation pending |
-| Inbound RDP to Omarchy | Roadmap |
+| Standalone | Deployment and rollback tested on the reference workstation; signed package installed from the signed pacman repository in a clean Arch environment |
+| Control Center | Native GTK4/Libadwaita interface in English and Italian, launched and navigated on the reference workstation |
+| Active Directory | Samba ADS enrollment, machine trust and Winbind, SSSD with NSS/PAM and Kerberos tickets tested on the reference workstation |
+| Graphical domain login | SDDM login with domain and local accounts, home directory provisioning and multi-user tested on the reference workstation |
+| File servers | Managed Nautilus bookmarks; SMB and GVFS exercised during development. Live Kerberos SMB acceptance pending |
+| Printers | CUPS discovery and queue inspection tested; IPP/IPPS queue plans. Live queue changes pending |
+| Enterprise Guard | Baseline checks, backup and recovery tested on the reference workstation |
+| Windows workspace | Dockur/Docker/QEMU guests with dedicated storage and manual startup tested on the reference workstation. Guest isolation acceptance pending |
+| Inbound RDP, independent remote sessions, OCS Inventory, Zabbix | Roadmap |
 
-See the [availability matrix](docs/availability.md) for evidence and
-qualification by workflow.
+Development used a real physical Omarchy workstation joined to a real Active
+Directory domain. Full acceptance on a clean Omarchy installation is still
+pending; see the [availability matrix](docs/availability.md) for the tested
+scope and the remaining acceptance by workflow.
 
 ## Documentation
 

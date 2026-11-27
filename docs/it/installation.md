@@ -1,14 +1,17 @@
 # Installazione e verifica
 
-Il sistema di riferimento per la qualificazione è Omarchy 4.5 (4.5 o
-4.5.0, basato su Arch Linux) su x86_64. Per la prova offline servono Bash e Python. Per
+Il sistema supportato è Omarchy 4.5 (4.5 o 4.5.0, basato su Arch Linux) su
+x86_64. Le funzionalità sono state provate durante lo sviluppo su una
+workstation Omarchy fisica di riferimento e il pacchetto firmato è stato
+installato dal repository pacman firmato in un ambiente Arch pulito; il
+collaudo su un'installazione pulita di Omarchy è ancora da completare (vedere
+la [matrice di disponibilità](../availability.md)). Per la prova offline servono Bash e Python. Per
 l'interfaccia grafica servono PyGObject, GTK 4.8 o superiore e Libadwaita
 1.4 o superiore.
 
 Il pacchetto Arch `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` (versione
-Pacman `0.5.0-1`) richiede firma del maintainer e collaudo su un'installazione
-pulita di Omarchy prima della distribuzione. Quando un pacchetto firmato è
-disponibile, ottenere l'impronta della chiave da un canale fidato separato
+Pacman `0.5.0-1`) è firmato con la chiave di rilascio e distribuito dal
+repository pacman firmato. Per installarlo a mano, ottenere l'impronta della chiave da un canale fidato separato
 e verificare sia la firma sia gli hash. Seguire la
 [procedura completa in inglese](../installation.md).
 Mantenere un account amministrativo locale e un backup verificato.
@@ -33,9 +36,9 @@ Gli aggiornamenti arrivano con `sudo pacman -Syu`.
 
 ## Pacchetto precompilato
 
-Il pacchetto `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` sarà pubblicato nelle
-Release solo dopo la firma e il collaudo su Omarchy pulito; per ora la release
-`v0.5.0` contiene solo i sorgenti. Impronta della chiave di firma (Ed25519,
+Il pacchetto firmato `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` e la sua
+`.sig` si scaricano dal [repository pacman firmato](https://piermark.github.io/omarchy-enterprise/x86_64/);
+la release `v0.5.0` contiene sorgenti, guida e checksum firmati. Impronta della chiave di firma (Ed25519,
 Marco Porro (Omarchy Enterprise)): `CDBB 05E0 13F4 F1E8 BBE8  F000 6E3D 9649 B45A DEC7`. Dopo averla verificata da un canale
 indipendente:
 

@@ -1,11 +1,15 @@
 # Roadmap
 
-## Workstation qualification
+## Release acceptance
 
-- Accept a clean Omarchy installation and verify the native desktop launch.
-- Qualify live AD enrollment, SSSD/PAM and SDDM login, including upgrades.
-- Validate GVFS/Kerberos SMB access, CUPS queue changes and recovery, and
-  optional Windows lifecycle and isolation on disposable systems.
+Features already exercised on the reference workstation are listed in the
+[availability matrix](docs/availability.md). Remaining acceptance:
+
+- Full integration on a clean Omarchy installation with the released package,
+  including the native desktop launch and login after a system upgrade.
+- Live Kerberos SMB access through GVFS and login-time bookmark sync.
+- CUPS queue mutations and their recovery.
+- Windows guest loopback connection and network isolation.
 
 ## Inbound remote desktop
 
@@ -21,6 +25,6 @@ Inbound RDP is unavailable in 0.5.0. Future qualification targets:
 
 ## Distribution and optional integrations
 
-- Qualify signed package distribution and release key verification.
+- Signed pacman repository: done in 0.5.0 (clean Arch install test passed).
 - Explore optional OCS Inventory integration.
 - Explore optional Zabbix integration.

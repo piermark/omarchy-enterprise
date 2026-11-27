@@ -2,7 +2,7 @@
 
 Use issues for documentation feedback and sanitized behavior reports. In pull
 requests, explain the change, how to reproduce it with disposable fixtures and
-which live workflows still need qualification.
+which live workflows still need acceptance.
 
 Use reserved example domains and documentation IP ranges. Keep credentials,
 deployment settings, keytabs, logs, backups and guest disks out of changes.
