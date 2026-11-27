@@ -17,13 +17,15 @@ Mantenere un account amministrativo locale e un backup verificato.
 
 Il pacchetto `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` sarà pubblicato nelle
 Release solo dopo la firma e il collaudo su Omarchy pulito; per ora la release
-`v0.5.0` contiene solo i sorgenti. Dopo aver verificato l'impronta della chiave:
+`v0.5.0` contiene solo i sorgenti. Impronta della chiave di firma (Ed25519,
+Marco Porro (Omarchy Enterprise)): `CDBB 05E0 13F4 F1E8 BBE8  F000 6E3D 9649 B45A DEC7`. Dopo averla verificata da un canale
+indipendente:
 
 ```sh
 gpg --verify SHA256SUMS.asc SHA256SUMS
 sha256sum -c --ignore-missing SHA256SUMS
-sudo pacman-key --add omarchy-enterprise-release-key.asc
-sudo pacman-key --lsign-key <IMPRONTA>
+sudo pacman-key --add omarchy-enterprise-signing-key.asc
+sudo pacman-key --lsign-key CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7
 sudo pacman -U omarchy-enterprise-0.5.0-1-any.pkg.tar.zst
 ```
 

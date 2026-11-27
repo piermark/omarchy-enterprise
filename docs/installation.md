@@ -36,8 +36,8 @@ when an approved signed package and verification key are available.
    least 128 MiB free for both `/usr` and `/var`. Pacman determines actual
    dependency transaction space requirements.
 2. Obtain the package, detached signature and OpenPGP release keyring.
-   Confirm the full primary fingerprint through an independent trusted
-   channel. Verify the checksum list signature with
+   Confirm the full primary fingerprint `CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7` through an independent
+   trusted channel. Verify the checksum list signature with
    `gpgv --keyring ./release-keyring.gpg SHA256SUMS.asc SHA256SUMS`,
    then run `sha256sum -c SHA256SUMS` with the complete matching asset set.
    Verify the package signature with

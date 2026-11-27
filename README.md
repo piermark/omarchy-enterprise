@@ -153,15 +153,17 @@ Download from **[Releases](https://github.com/piermark/omarchy-enterprise/releas
 | `omarchy-enterprise-0.5.0-source.tar.gz` | Source archive with `SOURCE-SHA256SUMS` |
 | `Omarchy-Enterprise-User-Guide.pdf` | Illustrated user guide (9 pages, English) |
 | `SHA256SUMS` / `SHA256SUMS.asc` | Checksums and their detached OpenPGP signature |
-| `omarchy-enterprise-release-key.asc` | Public release signing key |
+| `omarchy-enterprise-signing-key.asc` / `release-keyring.gpg` | Public release signing key (armored / binary keyring for `gpgv`) |
 | `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` (+ `.sig`) | Prebuilt package, **published after signing and clean Omarchy acceptance** |
 
-Confirm the release key fingerprint through an independent channel (for example
-[www.marcoporro.it](https://www.marcoporro.it)) before trusting it:
+Release signing key: **Marco Porro (Omarchy Enterprise) &lt;piermark@gmail.com&gt;**, Ed25519,
+fingerprint **`CDBB 05E0 13F4 F1E8 BBE8  F000 6E3D 9649 B45A DEC7`** (`CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`). Confirm it through an independent channel (for
+example [www.marcoporro.it](https://www.marcoporro.it) or
+[x.com/MarcoPorro](https://x.com/MarcoPorro)) before trusting it:
 
 ```sh
-gpg --import omarchy-enterprise-release-key.asc
-gpg --fingerprint "Omarchy Enterprise Release Signing"   # expect: <FINGERPRINT, published after signing>
+gpg --import omarchy-enterprise-signing-key.asc
+gpg --fingerprint CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7   # must show CDBB 05E0 13F4 F1E8 BBE8  F000 6E3D 9649 B45A DEC7
 gpg --verify SHA256SUMS.asc SHA256SUMS                    # must report a good signature
 sha256sum -c --ignore-missing SHA256SUMS                  # every downloaded file must be OK
 ```
@@ -176,8 +178,8 @@ sha256sum -c --ignore-missing SHA256SUMS                  # every downloaded fil
 2. Trust the release key in Pacman's keyring and install:
 
    ```sh
-   sudo pacman-key --add omarchy-enterprise-release-key.asc
-   sudo pacman-key --lsign-key <FINGERPRINT>
+   sudo pacman-key --add omarchy-enterprise-signing-key.asc
+   sudo pacman-key --lsign-key CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7
    sudo pacman -U omarchy-enterprise-0.5.0-1-any.pkg.tar.zst
    ```
 
@@ -188,7 +190,7 @@ sha256sum -c --ignore-missing SHA256SUMS                  # every downloaded fil
 
    Alternatively, the project's bootstrap reviews compatibility, the digest and the
    signer before handing off to Pacman:
-   `./install.sh --bootstrap --package ARCHIVE --keyring ./release-keyring.gpg --fingerprint <FINGERPRINT>`.
+   `./install.sh --bootstrap --package ARCHIVE --keyring ./release-keyring.gpg --fingerprint CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`.
 3. **First launch:** as the regular desktop user, open **Omarchy Enterprise** from the
    menu (or run `omarchy-enterprise desktop`), start with Overview, then open
    **Omarchy Enterprise Installer** (`omarchy-enterprise provision-wizard`) to stage and
