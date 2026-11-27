@@ -10,7 +10,7 @@
 
 | Workflow | Evidence | Remaining qualification |
 | --- | --- | --- |
-| Standalone staging, package verification | `IMPLEMENTED`, `OFFLINE_TESTED` for staging and simulated signature checks | `PENDING_QUALIFICATION` signed package and clean Omarchy acceptance |
+| Standalone staging, package verification | `IMPLEMENTED`, `OFFLINE_TESTED` for staging; signed package installed from the signed pacman repository in a clean Arch environment | `PENDING_QUALIFICATION` clean Omarchy acceptance |
 | GTK4 Control Center | `IMPLEMENTED`, `OFFLINE_TESTED` for UI models | `PENDING_QUALIFICATION` native launch on clean Omarchy |
 | Active Directory, SSSD and Kerberos | `IMPLEMENTED`, `OFFLINE_TESTED` for review and diagnostics | `PENDING_QUALIFICATION` live enrollment, trust, tickets and identity resolution |
 | Graphical domain login | `IMPLEMENTED`, `OFFLINE_TESTED` for review and opt-in staging | `PENDING_QUALIFICATION` PAM, SDDM and post-upgrade login |
@@ -20,5 +20,6 @@
 | Optional Windows workspace | `IMPLEMENTED`, `OFFLINE_TESTED` for planning and adapter behavior | `PENDING_QUALIFICATION` licensed media, lifecycle and isolation |
 | Inbound RDP to Omarchy, OCS Inventory, Zabbix | `ROADMAP` | See the [roadmap](../ROADMAP.md). |
 
-Use disposable workstations and synthetic settings for qualification. This
-release assembly includes no live qualification.
+Use disposable workstations and synthetic settings for qualification. Apart
+from the signed package install test, this release includes no live
+qualification.
