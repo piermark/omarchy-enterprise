@@ -12,3 +12,21 @@ disponibile, ottenere l'impronta della chiave da un canale fidato separato
 e verificare sia la firma sia gli hash. Seguire la
 [procedura completa in inglese](../installation.md).
 Mantenere un account amministrativo locale e un backup verificato.
+
+## Pacchetto precompilato
+
+Il pacchetto `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` sarà pubblicato nelle
+Release solo dopo la firma e il collaudo su Omarchy pulito; per ora la release
+`v0.5.0` contiene solo i sorgenti. Dopo aver verificato l'impronta della chiave:
+
+```sh
+gpg --verify SHA256SUMS.asc SHA256SUMS
+sha256sum -c --ignore-missing SHA256SUMS
+sudo pacman-key --add omarchy-enterprise-release-key.asc
+sudo pacman-key --lsign-key <IMPRONTA>
+sudo pacman -U omarchy-enterprise-0.5.0-1-any.pkg.tar.zst
+```
+
+Avviare **Omarchy Enterprise** dal menu come utente del desktop. Per rimuoverlo:
+`sudo pacman -Rns omarchy-enterprise`. Per compilarlo dai sorgenti:
+`cd packaging && makepkg --syncdeps`.
