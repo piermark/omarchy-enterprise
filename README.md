@@ -20,15 +20,30 @@ explicit approval.
 
 ## Install
 
+One-time setup: trust the release key and add the signed Omarchy Enterprise
+pacman repository.
+
 ```sh
-yay -S omarchy-enterprise
+curl -fsSLO https://piermark.github.io/omarchy-enterprise/omarchy-enterprise-signing-key.asc
+gpg --show-keys --with-fingerprint omarchy-enterprise-signing-key.asc
+# must show: CDBB 05E0 13F4 F1E8 BBE8  F000 6E3D 9649 B45A DEC7
+sudo pacman-key --add omarchy-enterprise-signing-key.asc
+sudo pacman-key --lsign-key CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7
+printf '\n[omarchy-enterprise]\nSigLevel = Required DatabaseRequired\nServer = https://piermark.github.io/omarchy-enterprise/$arch\n' \
+  | sudo tee -a /etc/pacman.conf
 ```
 
-The AUR package will be available after the public release. It builds from the
-signed source archive (release key `CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`).
-Then open **Omarchy Enterprise** from the Omarchy menu. For a manually verified
-install, see [Install the prebuilt package](#install-the-prebuilt-package) or
-[Build the package from source](#build-the-package-from-source).
+Then install:
+
+```sh
+sudo pacman -Syu omarchy-enterprise
+```
+
+Open **Omarchy Enterprise** from the Omarchy menu. Updates arrive with Omarchy's
+system update or `sudo pacman -Syu`. The repository and the package are signed
+with the release key; Pacman refuses unsigned or altered files. For a manually
+verified install, see [Install the prebuilt package](#install-the-prebuilt-package)
+or [Build the package from source](#build-the-package-from-source).
 
 ---
 

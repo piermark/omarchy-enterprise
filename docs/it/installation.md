@@ -13,16 +13,23 @@ e verificare sia la firma sia gli hash. Seguire la
 [procedura completa in inglese](../installation.md).
 Mantenere un account amministrativo locale e un backup verificato.
 
-## Installazione semplice (AUR)
+## Installazione semplice (repository pacman firmato)
 
-Dopo la pubblicazione, il metodo più semplice su Omarchy è:
+Il metodo più semplice su Omarchy è il repository pacman firmato
+`[omarchy-enterprise]`. Configurazione una tantum:
 
 ```sh
-yay -S omarchy-enterprise
+curl -fsSLO https://piermark.github.io/omarchy-enterprise/omarchy-enterprise-signing-key.asc
+gpg --show-keys --with-fingerprint omarchy-enterprise-signing-key.asc
+sudo pacman-key --add omarchy-enterprise-signing-key.asc
+sudo pacman-key --lsign-key CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7
+printf '\n[omarchy-enterprise]\nSigLevel = Required DatabaseRequired\nServer = https://piermark.github.io/omarchy-enterprise/$arch\n' \
+  | sudo tee -a /etc/pacman.conf
+sudo pacman -Syu omarchy-enterprise
 ```
 
-Il pacchetto AUR compila l'archivio sorgente firmato (chiave
-`CDBB05E013F4F1E8BBE8F0006E3D9649B45ADEC7`).
+L'impronta deve essere `CDBB 05E0 13F4 F1E8 BBE8  F000 6E3D 9649 B45A DEC7`.
+Gli aggiornamenti arrivano con `sudo pacman -Syu`.
 
 ## Pacchetto precompilato
 
