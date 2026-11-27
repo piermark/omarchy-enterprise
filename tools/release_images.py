@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Validate the exact metadata-free RGBA PNG formats used by this release."""
 import struct
 import zlib

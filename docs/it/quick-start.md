@@ -2,7 +2,7 @@
 
 Usare un ambiente di prova sacrificabile e un account senza privilegi
 amministrativi. Dopo aver ottenuto e decompresso l'archivio sorgente di
-`v0.5.0-preview.1`, eseguire dalla directory estratta:
+`v0.5.0`, eseguire dalla directory estratta:
 
 ```sh
 sha256sum -c SOURCE-SHA256SUMS

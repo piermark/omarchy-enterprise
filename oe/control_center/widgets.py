@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Shared accessible GTK widgets and native dialogs."""
 from gi.repository import Adw, Gtk, Pango
 

@@ -2,7 +2,7 @@
 
 | Status | Meaning |
 | --- | --- |
-| `IMPLEMENTED` | A preview implementation is present. |
+| `IMPLEMENTED` | An implementation is present. |
 | `REFERENCE_HOST_TESTED` | Prior reference-host evidence covers the indicated scope. |
 | `OFFLINE_TESTED` | Retained offline regression tests cover the indicated scope with fixtures or adapters. |
 | `PENDING_QUALIFICATION` | A live or release acceptance check is outstanding. |

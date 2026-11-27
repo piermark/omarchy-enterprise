@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Command-line interface to the independent synthetic administration workflows."""
 
 import json

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Classify existing installations from fixed metadata and verified image state."""
 import hashlib
 import json

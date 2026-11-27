@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Guided graphical provisioning for an isolated installation target."""
 
 from pathlib import Path

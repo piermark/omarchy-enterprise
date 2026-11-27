@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Redacted offline overview, independent of live authentication and services."""
 import json
 import os

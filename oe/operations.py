@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Explicit workstation operations with no implicit elevation or export."""
 
 from contextlib import ExitStack

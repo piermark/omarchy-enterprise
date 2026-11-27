@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Isolated Samba ADS enrollment. This does not install system trust."""
 
 import json

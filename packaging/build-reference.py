@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Stage reviewed reference commands with explicit Arch-specific adaptations."""
 
 import argparse

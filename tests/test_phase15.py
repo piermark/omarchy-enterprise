@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Phase 15 regressions using temporary files and injected native adapters."""
 
 import io
@@ -197,11 +198,13 @@ class OtherWorkflows(unittest.TestCase):
             self.assertEqual([line for line in text.splitlines(keepends=True) if line not in managed],
                              [line for line in before[0].splitlines(keepends=True) if line not in managed])
 
-    def test_guest_adapter_validates_client_flags(self):
+    @patch("oe.windows.client", return_value="/usr/bin/xfreerdp3")
+    def test_guest_adapter_validates_client_flags(self, _client):
         with self.assertRaisesRegex(ValueError, "certificate"):
             windows.loopback_client("guest.example.com", "guest", 3390, supported_help="/sec:nla")
         command = windows.loopback_client("guest.example.com", "guest", 3390,
                                          supported_help="/sec:nla /server-name:DNS /cert:deny /from-stdin")
+        self.assertEqual(command[0], "/usr/bin/xfreerdp3")
         self.assertEqual(command[1], "/v:127.0.0.1:3390")
         self.assertIn("/cert:deny", command)
         self.assertIn("/sec:nla", command)

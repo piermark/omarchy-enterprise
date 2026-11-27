@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Independent deployment and administration against a private synthetic target."""
 
 from dataclasses import dataclass

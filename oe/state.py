@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Recoverable transactions for project-owned text files."""
 
 import errno

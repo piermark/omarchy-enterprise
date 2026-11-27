@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Sidebar routing and adaptive content layout."""
 from gi.repository import Adw, GObject, Gtk
 

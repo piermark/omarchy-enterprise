@@ -1,22 +1,24 @@
-# Omarchy Enterprise 0.5.0 Public Preview
+# Omarchy Enterprise 0.5.0
 
 ![Omarchy Enterprise, bringing enterprise workstation capabilities to Omarchy Linux](assets/banner.png)
 
 [![License: MIT](assets/license-mit.svg)](LICENSE)
 
-Omarchy Enterprise is an independent workstation extension for Omarchy Linux.
+Omarchy Enterprise is an unofficial, independent workstation extension designed
+specifically for Omarchy Linux.
 The GTK4 and Libadwaita Control Center helps desktop users review configuration,
 workstation resources and recovery options. A separate administrative CLI
 reviews plans and applies scoped changes with approval.
 
-The public preview is tagged `v0.5.0-preview.1`. The 162 retained offline
-regression tests passed for this source. Clean Omarchy installation, native
-desktop launch and live integrations still require qualification. The Arch
-review build `0.5.0lab15-2` is unsigned and held for acceptance.
+Version 0.5.0 is tagged `v0.5.0`. It is an early release and is not
+production-ready. The 162 retained offline regression tests pass for this
+source. Clean Omarchy installation, native desktop launch and live
+integrations still require qualification. The package `0.5.0-1` is
+distributed only after maintainer signing and clean Omarchy acceptance.
 
 ## Feature availability
 
-| Capability | Preview scope |
+| Capability | 0.5.0 scope |
 | --- | --- |
 | Standalone | Offline profile staging, review and recovery |
 | Control Center | Native GTK4 interface with English and Italian translations and offline UI model checks |
@@ -37,7 +39,7 @@ qualification by workflow.
 
 ## Quick start
 
-Extract the source preview and run from the extracted repository root as a
+Extract the source archive and run from the extracted repository root as a
 regular user:
 
 ```sh
@@ -81,11 +83,12 @@ test cases.
 
 ## License and acknowledgments
 
-Original project material is licensed under [MIT](LICENSE). The
-[third-party notices](THIRD_PARTY_NOTICES.md) record the preserved 0BSD license
-and the maintainer's authorization for the reference-host command imports.
+Omarchy Enterprise is licensed under the [MIT License](LICENSE).
+Copyright (c) 2026 Marco Porro ([www.marcoporro.it](https://www.marcoporro.it)).
+See the [third-party notices](THIRD_PARTY_NOTICES.md) for separately supplied
+components, which keep their own licenses.
 
 Development and release preparation used AI assistance from ChatGPT and Codex.
 
-Omarchy Enterprise is an independent project with no official affiliation
-with Omarchy.
+Omarchy Enterprise is an unofficial, independent project. It is not affiliated
+with or endorsed by Omarchy.

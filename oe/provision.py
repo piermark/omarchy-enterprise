@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Prepare and transactionally install profile-owned files in a disposable image."""
 
 import json

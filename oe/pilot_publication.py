@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Administrator-only policy publication for the separately installed pilot."""
 
 import argparse

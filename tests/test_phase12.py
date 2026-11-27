@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Independent tests for the operational boundary, using synthetic inputs."""
 
 import argparse

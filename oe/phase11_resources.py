@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Validated resource definitions for the disposable administration backend."""
 
 import re

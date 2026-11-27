@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 set -euo pipefail
 directory=$(cd -- "${BASH_SOURCE[0]%/*}/.." && pwd -P)
 if (( EUID == 0 )); then

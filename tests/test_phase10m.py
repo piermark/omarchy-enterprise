@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Independent tests with synthetic profiles and temporary user state."""
 import ast
 import configparser
@@ -81,9 +82,12 @@ class Phase10M(unittest.TestCase):
             self.assertTrue(callable(getattr(self.backend, route)), route)
         runtime = diagnostics.windows_runtime(root=self.root)
         with patch.object(diagnostics, "services", return_value={}), patch.object(
-                diagnostics, "windows_runtime", return_value=runtime) as query:
+                diagnostics, "windows_runtime", return_value=runtime) as query, patch(
+                "oe.windows.client", return_value="/usr/bin/xfreerdp3") as client:
             rows = dict(self.backend.windows(Event()).rows)
         query.assert_called_once_with(activity="UNKNOWN", query=True)
+        client.assert_called_once_with()
+        self.assertEqual(rows["FreeRDP client"].code, "AVAILABLE")
         self.assertEqual(rows["Desired start policy"].code, "MANUAL START ONLY")
         self.assertEqual(rows["Managed launch"].code, "BLOCKED")
         self.assertEqual(rows["Storage readiness"].code, "NOT TESTED")

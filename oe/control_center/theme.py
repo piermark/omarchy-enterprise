@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Use Libadwaita defaults and the session's appearance preference."""
 from gi.repository import Adw
 

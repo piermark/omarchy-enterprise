@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Local CUPS queue plans and bounded administration."""
 
 import re

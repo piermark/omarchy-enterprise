@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Open synthetic native pages and print a shareable, redacted summary.
 
 Provide an isolated display explicitly. The fixture never loads installed

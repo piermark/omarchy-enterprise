@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Product workflows exercised with isolated fixtures and bounded fake adapters."""
 
 import importlib.util

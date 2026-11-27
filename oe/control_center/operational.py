@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Installed workflow reviews with no graphical privilege elevation."""
 
 import platform

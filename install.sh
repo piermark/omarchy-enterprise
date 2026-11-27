@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 set -euo pipefail
 
 usage() {
@@ -12,7 +13,7 @@ Offline staging:
   ./install.sh --root PRIVATE_DIRECTORY --profile PROFILE [PROFILE_OPTIONS]
   ./install.sh --root PRIVATE_DIRECTORY --cli [--dry-run]
 
-This beta provisions only an isolated, user-owned directory (mode 0700).
+This installer provisions only an isolated, user-owned directory (mode 0700).
 Use one of: standalone, active-directory, full-enterprise.
 Use --yes after reviewing the operation for noninteractive confirmation.
 The installer does not install packages, start services or enroll AD.
@@ -23,7 +24,7 @@ if [[ ${1:-} == --help ]]; then
     usage
     exit 0
 fi
-(( EUID != 0 )) || { echo 'Run this beta installer as a regular user.' >&2; exit 1; }
+(( EUID != 0 )) || { echo 'Run this installer as a regular user.' >&2; exit 1; }
 base=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
 if [[ ${1:-} == --bootstrap ]]; then
     shift

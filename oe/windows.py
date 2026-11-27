@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Generate a Dockur deployment plan and build strict FreeRDP arguments."""
 
 from pathlib import Path

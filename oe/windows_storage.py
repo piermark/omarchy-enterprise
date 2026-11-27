@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Read-only probes and redacted diagnostics for a proposed Windows storage path."""
 
 from contextlib import contextmanager

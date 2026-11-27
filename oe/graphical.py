@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Render the user console with native GTK dialogs through Zenity."""
 
 from pathlib import Path

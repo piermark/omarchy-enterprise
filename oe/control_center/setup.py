@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Navigation and transaction preparation for the offline wizard."""
 from dataclasses import dataclass, field
 from pathlib import Path

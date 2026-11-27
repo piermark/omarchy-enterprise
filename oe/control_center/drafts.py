@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Visual editor for private and in-memory file server policies."""
 from gi.repository import Adw, Gio, Gtk
 

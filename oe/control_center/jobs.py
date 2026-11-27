@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Run bounded backend probes off the UI thread and discard stale results."""
 from concurrent.futures import ThreadPoolExecutor
 import os

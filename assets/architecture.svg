@@ -32,5 +32,5 @@
 <text x="976" y="597" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Guest storage and lifecycle planning</text>
 <text x="976" y="625" fill="#d2c5b6" font-family="Liberation Sans, sans-serif" font-size="22" font-weight="400">Manual startup by default</text>
 <rect x="54" y="720" width="1332" height="59" rx="10" fill="#33291e" stroke="#52483a"/>
-<text x="77" y="757" fill="#efb568" font-family="Liberation Sans, sans-serif" font-size="23" font-weight="700">ROADMAP   /   Inbound RDP to Omarchy remains unavailable in this preview.</text>
+<text x="77" y="757" fill="#efb568" font-family="Liberation Sans, sans-serif" font-size="23" font-weight="700">ROADMAP   /   Inbound RDP to Omarchy remains unavailable in 0.5.0.</text>
 </svg>

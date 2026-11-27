@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Categorical desktop views over the reviewed backend interfaces."""
 from dataclasses import dataclass
 import json

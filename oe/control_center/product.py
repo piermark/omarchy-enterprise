@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Structured product forms and explicit administrator handoff."""
 
 from gi.repository import Adw, Gtk

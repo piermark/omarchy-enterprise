@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Explicit Phase 12 user and administrator interfaces."""
 
 import argparse

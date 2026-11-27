@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Opt-in integration for an established graphical Enterprise session."""
 
 import json

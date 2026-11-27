@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """GTK review and approval for disposable administration actions."""
 
 from copy import deepcopy

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Offline policy for an inbound RDP service. No backend has been qualified."""
 
 import hashlib

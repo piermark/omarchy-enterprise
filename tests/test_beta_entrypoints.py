@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 import os
 from pathlib import Path
 import subprocess
@@ -9,7 +10,7 @@ from oe import __version__
 ROOT = Path(__file__).resolve().parents[1]
 
 
-@unittest.skipIf(os.geteuid() == 0, "Beta entry points run as an ordinary user")
+@unittest.skipIf(os.geteuid() == 0, "Entry points run as an ordinary user")
 class BetaEntrypointsTest(unittest.TestCase):
     def setUp(self):
         temporary = tempfile.TemporaryDirectory()

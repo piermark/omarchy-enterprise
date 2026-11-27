@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Installation profile definitions shared by the guided setup and diagnostics."""
 
 STANDALONE = ("printing", "inventory", "security", "updates", "backup")

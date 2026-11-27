@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# SPDX-License-Identifier: MIT
 """Stage the explicit Phase 10I source list and an archive without local metadata."""
 import argparse
 import gzip
@@ -58,7 +59,7 @@ def main(source_list=LIST, version=VERSION, *, rewrite_version=True, compressed=
     if args.output.is_symlink() or not args.output.is_dir() or any(args.output.iterdir()):
         parser.error("Choose an empty output directory")
     if not (ROOT / source_list).is_file():
-        parser.error(f"Source allowlist unavailable: {source_list}. Use export-phase15.py for the public preview.")
+        parser.error(f"Source allowlist unavailable: {source_list}. Use export-phase15.py for the 0.5.0 release.")
     os.umask(0o077)
     entries = list(collect(source_list, version if rewrite_version else None))
     manifest = "".join(f"{hashlib.sha256(data).hexdigest()}  {name}\n" for name, data, _ in entries)

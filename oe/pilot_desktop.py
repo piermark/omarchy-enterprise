@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Selective Omarchy menu and native post-boot integration."""
 
 import json

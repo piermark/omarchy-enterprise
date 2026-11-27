@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Maintain exact managed lines in the native GTK bookmark file."""
 
 from contextlib import contextmanager

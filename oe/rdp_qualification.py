@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Offline evidence and a fail-closed boundary for inbound RDP adapters."""
 
 from dataclasses import dataclass

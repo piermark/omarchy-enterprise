@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Independent Phase 12 plans and transactions for Enterprise-owned files."""
 
 import hashlib

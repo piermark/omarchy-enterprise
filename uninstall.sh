@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 set -euo pipefail
 
 usage() {
     cat <<'TEXT'
 Usage: ./uninstall.sh --root PRIVATE_DIRECTORY [--component {all,file-servers,printer,windows}] [--yes]
 
-Remove the beta's managed files from a previously provisioned isolated
+Remove the installer's managed files from a previously provisioned isolated
 directory. The installer journal permits recovery or rollback. This
 does not remove an Arch package or change a live operating system.
 TEXT

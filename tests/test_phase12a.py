@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Targeted operational regressions using disposable state and injected adapters."""
 
 import argparse

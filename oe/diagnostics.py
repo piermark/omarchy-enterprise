@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Redacted host diagnostics. Authentication acceptance is a separate check."""
 import grp
 import json

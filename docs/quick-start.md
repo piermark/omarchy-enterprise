@@ -1,7 +1,7 @@
 # Quick start
 
 Start on a disposable evaluation system as a regular user. Download the source
-archive for `v0.5.0-preview.1` after the maintainer publishes it. Extract it,
+archive for `v0.5.0` after the maintainer publishes it. Extract it,
 open a terminal in the extracted `omarchy-enterprise` directory, and run:
 
 ```sh

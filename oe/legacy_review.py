@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Bounded, redacted review of system integration files and offline hook staging."""
 
 import fcntl

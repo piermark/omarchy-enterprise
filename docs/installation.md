@@ -1,8 +1,8 @@
 # Installation and evaluation
 
 Clean installation acceptance is pending. The target for qualification is a
-clean, disposable x86_64 workstation running Arch-based Omarchy 4.5
-(4.5 or 4.5.0). Keep independent local administrator and recovery access.
+clean, disposable x86_64 workstation running Omarchy 4.5 (4.5 or 4.5.0),
+which is based on Arch Linux. Keep independent local administrator and recovery access.
 Start with the Standalone profile before evaluating directory integration.
 
 ## Offline evaluation from source
@@ -25,8 +25,9 @@ Use `./uninstall.sh --root "$stage"` to review removal of the staged profile.
 
 ## Signed-package qualification
 
-The local review package uses Arch version `0.5.0lab15-2`. It requires
-maintainer signing and acceptance before distribution. Follow these steps
+The Arch package `omarchy-enterprise-0.5.0-1-any.pkg.tar.zst` (Pacman version
+`0.5.0-1`) requires maintainer signing and clean Omarchy acceptance before
+distribution. Follow these steps
 when an approved signed package and verification key are available.
 
 1. Use a regular desktop session for the graphical workflow. The native
@@ -37,7 +38,7 @@ when an approved signed package and verification key are available.
 2. Obtain the package, detached signature and OpenPGP release keyring.
    Confirm the full primary fingerprint through an independent trusted
    channel. Verify the checksum list signature with
-   `gpgv --keyring ./release-keyring.gpg SHA256SUMS.sig SHA256SUMS`,
+   `gpgv --keyring ./release-keyring.gpg SHA256SUMS.asc SHA256SUMS`,
    then run `sha256sum -c SHA256SUMS` with the complete matching asset set.
    Verify the package signature with
    `gpgv --keyring ./release-keyring.gpg ARCHIVE.sig ARCHIVE`.
@@ -49,7 +50,7 @@ when an approved signed package and verification key are available.
    require a trusted signature through Pacman's `LocalFileSigLevel`.
 4. Qualify the desktop launch as the regular desktop user. Use
    `./install.sh --bootstrap --launch` with the matching installed
-   preview package or open **Omarchy Enterprise Installer**. Stage the
+   Omarchy Enterprise package or open **Omarchy Enterprise Installer**. Stage the
    Standalone profile and review it before separately approving a policy
    deployment. See the [administrator guide](administration.md).
 

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Propagate shared per-user Kerberos collections without exposing credentials."""
 
 import os

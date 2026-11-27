@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 from contextlib import redirect_stderr, redirect_stdout
 from io import StringIO
 import json

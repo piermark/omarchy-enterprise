@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Review and quarantine shadow commands without interpreting their contents."""
 import ctypes
 from contextlib import ExitStack, contextmanager

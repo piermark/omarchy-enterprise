@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Apply and roll back a managed AD bundle in an isolated lab filesystem."""
 
 import os

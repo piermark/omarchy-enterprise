@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Local Dockur command adapter. Lifecycle execution requires separate qualification."""
 
 from dataclasses import dataclass

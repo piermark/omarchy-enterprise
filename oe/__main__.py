@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Command-line and terminal console entry points."""
 
 import argparse

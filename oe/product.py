@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Structured planning shared by the installer and Control Center."""
 
 from dataclasses import dataclass, field

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Select GTK when its typelibs and a usable display are available."""
 import os
 import sys

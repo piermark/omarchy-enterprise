@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Resolve centrally assigned SMB resources from current Unix group membership."""
 
 import grp

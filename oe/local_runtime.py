@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Bounded Linux process groups for trusted local fixtures."""
 from dataclasses import dataclass
 import errno

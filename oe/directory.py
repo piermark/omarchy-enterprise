@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Render administrator-reviewed Active Directory configuration files."""
 
 import os

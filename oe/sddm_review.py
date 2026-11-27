@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Discover SDDM configuration and redact values outside the known theme."""
 
 import configparser

@@ -9,7 +9,7 @@
 
 ## Inbound remote desktop
 
-Inbound RDP is unavailable in this preview. Future qualification targets:
+Inbound RDP is unavailable in 0.5.0. Future qualification targets:
 
 - Independent Hyprland remote sessions.
 - Windows Remote Desktop Connection (`mstsc`) compatibility.

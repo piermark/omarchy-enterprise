@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Allowlisted live deployment for explicitly authorized Omarchy lab guests."""
 
 from contextlib import contextmanager

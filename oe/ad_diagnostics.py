@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Bounded AD diagnostic probes with redacted, protocol-specific results."""
 
 import os

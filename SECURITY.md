@@ -1,6 +1,6 @@
 # Security policy
 
-This experimental source preview has no production support commitment. See
+Omarchy Enterprise 0.5.0 is experimental and has no production support commitment. See
 the [availability matrix](docs/availability.md) before evaluating
 administrative workflows.
 

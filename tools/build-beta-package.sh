@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
 # Build a review artifact without embedding host paths or package inventory.
 set -euo pipefail
 umask 077
@@ -14,7 +15,7 @@ if [[ -n ${SOURCE_DATE_EPOCH:-} ]]; then
     work=/tmp/oe-reproducible-package
     mkdir -m 700 -- "$work"
 else
-    work=$(mktemp -d /tmp/oe-beta-package.XXXXXXXX)
+    work=$(mktemp -d /tmp/oe-package.XXXXXXXX)
 fi
 trap 'rm -rf -- "$work"' EXIT
 mkdir -- "$work/home" "$work/source" "$work/artifacts"
@@ -37,14 +38,14 @@ chmod 700 "$work/pacman"
     cd -- "$work/source/packaging"
     env -i SOURCE_DATE_EPOCH="${SOURCE_DATE_EPOCH:-}" PATH=/usr/bin:/bin HOME="$work/home" LC_ALL=C.UTF-8 \
         XDG_CONFIG_HOME="$work/home/config" PACMAN="$work/pacman" \
-        PACKAGER='Omarchy Enterprise Contributors <maintainers@example.com>' \
+        PACKAGER='Marco Porro <17280140+piermark@users.noreply.github.com>' \
         PKGDEST="$work/artifacts" makepkg --config /etc/makepkg.conf --noconfirm
 )
 set -- "$work/artifacts/"*.pkg.tar.zst
 [[ $# == 1 && -f $1 ]] || { echo 'Expected one Arch artifact.' >&2; exit 1; }
 metadata=$(bsdtar -xOf "$1" .BUILDINFO)
 if grep -qE '^installed =|/home/' <<<"$metadata" \
-    || ! grep -Fxq 'packager = Omarchy Enterprise Contributors <maintainers@example.com>' <<<"$metadata"; then
+    || ! grep -Fxq 'packager = Marco Porro <17280140+piermark@users.noreply.github.com>' <<<"$metadata"; then
     echo 'Host-specific build metadata detected; artifact withheld.' >&2
     exit 1
 fi

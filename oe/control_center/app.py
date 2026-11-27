@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """GTK lifecycle and composition for the Enterprise Control Center."""
 import json
 

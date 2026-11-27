@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Session-local translations with an English fallback."""
 import gettext
 from pathlib import Path

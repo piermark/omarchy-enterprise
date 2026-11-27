@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Independent Phase 11 tests. All mutations target disposable fixtures."""
 
 from concurrent.futures import ThreadPoolExecutor

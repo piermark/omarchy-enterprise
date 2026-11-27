@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: MIT
 .pragma library
 
 function qualified(input, realm, workgroup, domainAccount) {

@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: MIT
 """Unprivileged review and handoff for signed Arch package installation."""
 
 import argparse
@@ -14,7 +15,7 @@ from . import operational
 
 PACMAN = "/usr/bin/pacman"
 PACKAGE = "omarchy-enterprise"
-VERSION = "0.5.0lab15-2"
+VERSION = "0.5.0-1"
 REQUIRED = ("bash", "python", "python-gobject", "gtk4>=4.8", "libadwaita>=1.4")
 INSTALLER = ("/usr/bin/omarchy-enterprise", "provision-wizard", "--native")
 
@@ -22,13 +23,13 @@ INSTALLER = ("/usr/bin/omarchy-enterprise", "provision-wizard", "--native")
 def preflight(root=Path("/"), *, run=operational.command, machine=platform.machine,
               disk=shutil.disk_usage):
     if machine() != "x86_64":
-        raise ValueError("This preview supports x86_64 Omarchy workstations")
+        raise ValueError("Omarchy Enterprise supports x86_64 Omarchy workstations")
     with (root / "etc/os-release").open() as stream:
         arch = any(line.strip() in {"ID=arch", 'ID="arch"'} for line in stream)
     with (root / "etc/omarchy/version").open() as stream:
         version = stream.read(32).strip()
     if not arch or version not in {"4.5", "4.5.0"}:
-        raise ValueError("This preview requires Arch-based Omarchy 4.5")
+        raise ValueError("Omarchy Enterprise requires Omarchy 4.5 (Arch-based)")
     for target in ("usr", "var"):
         path = str(root / target)
         code, result = run(("/usr/bin/findmnt", "--noheadings", "--output",
@@ -93,7 +94,7 @@ def main(argv=None):
             if any((args.package, args.keyring, args.fingerprint)):
                 raise ValueError("Launch is a separate step after package installation")
             if installed != VERSION or missing:
-                raise ValueError("Install the reviewed preview package and graphical prerequisites first")
+                raise ValueError("Install the reviewed Omarchy Enterprise package and graphical prerequisites first")
             if not (os.getenv("WAYLAND_DISPLAY") or os.getenv("DISPLAY")):
                 raise ValueError("Launch the native installer from your graphical session")
             os.execv(INSTALLER[0], INSTALLER)
@@ -103,7 +104,7 @@ def main(argv=None):
         digest = verify(archive, args.keyring.resolve(strict=True), args.fingerprint.upper())
         print(f"Verified SHA-256 {digest}")
         if installed == VERSION:
-            print("The preview package is already installed. Rerun with --launch.")
+            print("The Omarchy Enterprise package is already installed. Rerun with --launch.")
             return 0
         if installed:
             code, ordering = operational.command(("/usr/bin/vercmp", installed, VERSION))
